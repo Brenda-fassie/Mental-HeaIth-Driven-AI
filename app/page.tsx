@@ -3,14 +3,6 @@ import Link from "next/link";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 
 export default function Home() {
-  const features = [
-    "Journaling",
-    "Conversations",
-    "Personalization",
-    "Memory",
-    "Collaboration",
-  ];
-
   return (
     <main className="relative min-h-screen bg-[#F1F9F7] dark:bg-background flex flex-col md:flex-row items-center justify-center px-6 md:px-20 overflow-hidden">
       {/* Theme toggle — top right */}
@@ -51,7 +43,7 @@ export default function Home() {
             />
           </div>
 
-          {/* Heading + tagline — visible on ALL breakpoints */}
+          {/* Heading + tagline */}
           <div className="space-y-4 md:space-y-6">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-medium text-foreground leading-[1.1] font-[family-name:var(--font-overlock)]">
               Mental Wellness
@@ -59,15 +51,6 @@ export default function Home() {
             <p className="text-lg md:text-2xl text-muted-foreground leading-snug max-w-sm">
               The realest conversations happen on the rooftop
             </p>
-
-            <ul className="text-sm md:text-base text-muted-foreground space-y-1.5">
-              {features.map((item) => (
-                <li key={item} className="flex items-center gap-2">
-                  <span className="w-1 h-1 rounded-full bg-[#7BDFF2] inline-block" />
-                  {item}
-                </li>
-              ))}
-            </ul>
           </div>
 
           {/* CTA */}
