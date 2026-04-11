@@ -12,7 +12,7 @@ function ToggleRow({ title, hint, defaultChecked }: { title: string; hint: strin
       </div>
       <span className="relative inline-flex items-center shrink-0">
         <input type="checkbox" defaultChecked={defaultChecked} className="peer sr-only" />
-        <span className="h-7 w-12 rounded-full bg-gray-200 peer-checked:bg-[#7BDFF2] transition-colors" />
+        <span className="h-7 w-12 rounded-full bg-gray-200 peer-checked:bg-[#7BDFF2] peer-focus:ring-2 peer-focus:ring-[#7BDFF2] peer-focus:ring-offset-1 transition-colors" />
         <span className="absolute left-1 h-5 w-5 rounded-full bg-white shadow peer-checked:translate-x-5 transition-transform" />
       </span>
     </label>

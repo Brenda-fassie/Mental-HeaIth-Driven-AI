@@ -37,10 +37,10 @@ export default function CalendarPage() {
             </div>
 
             <div className="mt-8 flex flex-wrap gap-4 text-xs text-gray-600">
-              <span className="inline-flex items-center gap-2"><i className="h-3 w-3 rounded-full bg-gray-200 not-italic" /> quiet</span>
-              <span className="inline-flex items-center gap-2"><i className="h-3 w-3 rounded-full bg-[#B2F7EF] not-italic" /> steady</span>
-              <span className="inline-flex items-center gap-2"><i className="h-3 w-3 rounded-full bg-[#7BDFF2] not-italic" /> expressive</span>
-              <span className="inline-flex items-center gap-2"><i className="h-3 w-3 rounded-full bg-[#F2B5D4] not-italic" /> intense</span>
+              <span className="inline-flex items-center gap-2"><span className="h-3 w-3 rounded-full bg-gray-200 inline-block" /> quiet</span>
+              <span className="inline-flex items-center gap-2"><span className="h-3 w-3 rounded-full bg-[#B2F7EF] inline-block" /> steady</span>
+              <span className="inline-flex items-center gap-2"><span className="h-3 w-3 rounded-full bg-[#7BDFF2] inline-block" /> expressive</span>
+              <span className="inline-flex items-center gap-2"><span className="h-3 w-3 rounded-full bg-[#F2B5D4] inline-block" /> intense</span>
             </div>
           </section>
 

@@ -29,7 +29,7 @@ export default function MenuPage() {
         <Link href="/" aria-label="Home">
           <Image src="/Logo.svg" alt="Rooftop" width={110} height={34} className="object-contain" />
         </Link>
-        <Link href="/chat" aria-label="Close menu" className="p-2 rounded-xl hover:bg-white/60 transition-colors">
+        <Link href="/chat" aria-label="Go to chat" className="p-2 rounded-xl hover:bg-white/60 transition-colors">
           <CloseIcon className="w-7 h-7 text-gray-800" />
         </Link>
       </div>
