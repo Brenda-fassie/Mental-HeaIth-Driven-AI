@@ -3,82 +3,102 @@ import Link from "next/link";
 
 export default function SignupPage() {
 	return (
-		<main className="relative min-h-screen bg-white flex items-center justify-center p-6 overflow-hidden">
-			<div className="fixed bottom-10 left-10 md:bottom-20 md:left-20 z-0 opacity-90 transition-transform hover:scale-105 duration-500">
-				<Image src="/Orange_Shirt.svg" alt="" width={180} height={180} priority />
+		<main className="relative min-h-screen bg-[#F1F9F7] flex items-center justify-center p-6 overflow-hidden">
+			{/* Background Ambient Elements - Subtle and Professional */}
+			<div className="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none">
+				<div className="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] bg-[#B2F7EF] rounded-full blur-[120px]" />
+				<div className="absolute bottom-[-10%] right-[-5%] w-[500px] h-[500px] bg-[#F2B5D4] rounded-full blur-[120px]" />
 			</div>
 
-			<div className="fixed top-10 left-[15%] z-0 opacity-80 -rotate-12 hidden lg:block">
-				<Image src="/Green_1.svg" alt="" width={120} height={120} />
-			</div>
-
-			<div className="fixed top-1/2 -right-12 -translate-y-1/2 z-0 opacity-90 rotate-12 hidden md:block">
-				<Image src="/Green_2.svg" alt="" width={220} height={220} />
-			</div>
-
-			<div className="fixed bottom-12 right-[10%] z-0 opacity-70 rotate-45 hidden lg:block">
-				<Image src="/Green_1.svg" alt="" width={100} height={100} />
-			</div>
-
-			<div className="relative z-10 max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-				<div className="flex justify-center md:justify-end">
-					<form className="w-full max-w-[460px] bg-white p-12 md:p-16 rounded-[50px] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-gray-50 space-y-10">
-						<h2 className="text-4xl font-normal text-gray-800">Sign Up</h2>
-
-						<div className="space-y-8">
-							<div className="space-y-2">
-								<label htmlFor="name" className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 pl-1">
-									Name
-								</label>
-								<div className="w-full bg-[#F2F2F2] rounded-2xl p-5 text-lg text-gray-500 font-light">
-									your name
-								</div>
-							</div>
-
-							<div className="space-y-2">
-								<label htmlFor="email" className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 pl-1">
-									Email
-								</label>
-								<div className="w-full bg-[#F2F2F2] rounded-2xl p-5 text-lg text-gray-500 font-light">
-									your.name@email.com
-								</div>
-							</div>
-						</div>
-
-						<Link 
-							href="/welcome" 
-							className="group relative block w-full py-5 bg-[#D3D8E2] rounded-xl text-xl font-medium text-gray-700 text-center overflow-hidden transition-all duration-300"
-						>
-							<span className="relative z-10 group-hover:text-white transition-colors duration-300">
-								Create Account
-							</span>
-							<div className="absolute inset-0 bg-black -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-in-out" />
-						</Link>
-
-						<div className="text-center space-y-3 pt-4">
-							<p className="text-[11px] text-gray-400 uppercase tracking-wider">All your Information is anonymized</p>
-							<div className="flex flex-col gap-2">
-								<Link href="/login" className="text-xs text-blue-500 hover:text-blue-700">
-									Already have an account? Login
-								</Link>
-								<Link href="/terms" className="text-xs text-gray-400 underline hover:text-gray-600">
-									Terms of Service
-								</Link>
-							</div>
-						</div>
-					</form>
-				</div>
-
-				<div className="flex flex-col items-center md:items-start space-y-8">
-					<div className="relative">
-						<Image src="/Logo.svg" alt="Rooftop" width={320} height={100} className="object-contain" />
+			<div className="relative z-10 max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+				{/* Left Side: Branding & Value Prop */}
+				<div className="hidden lg:flex flex-col space-y-10">
+					<div className="relative w-64">
+						<Image src="/Logo.svg" alt="Rooftop" width={260} height={80} className="object-contain" priority />
+					</div>
+					
+					<div className="space-y-6">
+						<h1 className="text-7xl font-medium text-gray-900 leading-[1.1] tracking-tight">
+							Begin your <br />
+							<span className="text-black italic">wellness</span> journey.
+						</h1>
+						<p className="text-2xl text-gray-600 font-light max-w-md leading-relaxed">
+							Secure, anonymous, and deeply personal conversations. The rooftop is your safe space.
+						</p>
 					</div>
 
-					<div className="space-y-4 text-center md:text-left">
-						<h1 className="text-6xl font-medium text-gray-900 tracking-tight">Create an account</h1>
-						<p className="text-2xl text-gray-600 font-light max-w-md leading-relaxed">
-							The realest conversations are just a few details away.
-						</p>
+					<div className="flex items-center space-x-4 text-gray-500">
+						<div className="flex -space-x-2">
+							{[1, 2, 3].map((i) => (
+								<div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-gray-200" />
+							))}
+						</div>
+						<p className="text-sm font-medium">Joined by 2,000+ others this week</p>
+					</div>
+				</div>
+
+				{/* Right Side: Modern Form Card */}
+				<div className="flex justify-center lg:justify-end">
+					<div className="w-full max-w-[500px] bg-white/80 backdrop-blur-xl p-10 md:p-14 rounded-[40px] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.08)] border border-white">
+						<div className="mb-10 text-center lg:text-left">
+							<div className="lg:hidden mb-8 flex justify-center">
+								<Image src="/Logo.svg" alt="Rooftop" width={180} height={60} />
+							</div>
+							<h2 className="text-3xl font-medium text-gray-900">Create Account</h2>
+							<p className="text-gray-500 mt-2">Join the rooftop community today.</p>
+						</div>
+
+						<form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+							<div className="space-y-2">
+								<label htmlFor="name" className="text-[11px] font-bold uppercase tracking-[0.15em] text-gray-400 ml-1">
+									Full Name
+								</label>
+								<input
+									type="text"
+									id="name"
+									placeholder="e.g. Sarah Parker"
+									className="w-full bg-gray-50 border border-gray-100 rounded-2xl p-4 text-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#B2F7EF] transition-all"
+								/>
+							</div>
+
+							<div className="space-y-2">
+								<label htmlFor="email" className="text-[11px] font-bold uppercase tracking-[0.15em] text-gray-400 ml-1">
+									Email Address
+								</label>
+								<input
+									type="email"
+									id="email"
+									placeholder="name@email.com"
+									className="w-full bg-gray-50 border border-gray-100 rounded-2xl p-4 text-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#B2F7EF] transition-all"
+								/>
+							</div>
+
+							<div className="pt-4">
+								<Link 
+									href="/welcome" 
+									className="group relative block w-full py-4 bg-black rounded-2xl text-xl font-medium text-white text-center overflow-hidden transition-all duration-300 shadow-xl shadow-black/10 hover:shadow-black/20"
+								>
+									<span className="relative z-10 transition-colors duration-300">
+										Create Account
+									</span>
+									<div className="absolute inset-0 bg-[#333] -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-in-out" />
+								</Link>
+							</div>
+
+							<div className="text-center space-y-4 pt-6">
+								<p className="text-sm text-gray-500">
+									Already have an account?{" "}
+									<Link href="/login" className="text-black font-semibold hover:underline">
+										Log in
+									</Link>
+								</p>
+								<div className="h-px bg-gray-100 w-full" />
+								<p className="text-[10px] text-gray-400 uppercase tracking-widest leading-relaxed">
+									By signing up, you agree to our <br />
+									<Link href="/terms" className="underline">Terms</Link> & <Link href="/privacy" className="underline">Privacy Policy</Link>
+								</p>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>

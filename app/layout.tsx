@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
-import { Overlock, Cantarell, Amiko } from 'next/font/google'
+import { Overlock, Cantarell, Amiko, Geist } from 'next/font/google'
 import './globals.css'
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const overlock = Overlock({
   subsets: ['latin'],
@@ -31,7 +34,7 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang="en" className={`${overlock.variable} ${cantarell.variable} ${amiko.variable}`}>
+		<html lang="en" className={cn(overlock.variable, cantarell.variable, amiko.variable, "font-sans", geist.variable)}>
 			<body className="antialiased">{children}</body>
 		</html>
 	)

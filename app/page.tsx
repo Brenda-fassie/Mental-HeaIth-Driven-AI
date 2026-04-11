@@ -17,8 +17,8 @@ export default function Home() {
       </div>
 
       <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center py-12 md:py-0">
-        <div className="order-1 md:order-2 flex justify-center items-center">
-          <div className="relative w-full max-w-75 md:max-w-150 aspect-square">
+        <div className="order-1 md:order-2 flex justify-center items-center md:justify-end">
+          <div className="relative w-[120vw] md:w-[140vw] lg:w-[160vw] md:-mr-[40%] lg:-mr-[50%] -mb-[10%] md:mb-0 aspect-square transition-transform duration-700 hover:scale-105">
             <Image
               src="/Onboard.svg"
               alt="Mental Wellness Illustration"
@@ -29,7 +29,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="order-2 md:order-1 flex flex-col space-y-8 md:space-y-10 items-center md:items-start text-center md:text-left">
+        <div className="order-2 md:order-1 flex flex-col space-y-8 md:space-y-10 items-start text-left">
           <div className="relative w-55 md:w-70">
             <Image
               src="/Logo.svg"
