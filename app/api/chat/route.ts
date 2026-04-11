@@ -8,7 +8,7 @@ export async function POST(req: Request) {
   const { messages } = await req.json();
 
   const result = streamText({
-    model: google('gemini-1.5-pro'),
+    model: google('gemini-flash-latest'),
     messages,
     system: `You are Sarah, a supportive and empathetic mental health wellness coach on the 'Rooftop' app. 
     Your goal is to provide a safe space for reflection and emotional support. 
