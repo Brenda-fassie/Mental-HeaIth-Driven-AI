@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function WelcomePage() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#F1F9F7]">
+    <div className="min-h-screen flex flex-col bg-background">
       <OnboardingHeader />
 
       {/* Accent strip */}
@@ -14,21 +14,21 @@ export default function WelcomePage() {
           <span className="inline-block text-[10px] font-bold uppercase tracking-[0.25em] text-[#7BDFF2]">
             Rooftop
           </span>
-          <h1 className="text-5xl font-[family-name:var(--font-overlock)] font-bold text-gray-900 leading-tight">
+          <h1 className="text-5xl font-[family-name:var(--font-overlock)] font-bold text-foreground leading-tight">
             Welcome
           </h1>
-          <p className="text-xl text-gray-600 leading-relaxed">
+          <p className="text-xl text-muted-foreground leading-relaxed">
             We&apos;re glad you&apos;re here. Let&apos;s take a moment to get you settled into the rooftop.
           </p>
         </div>
 
-        <div className="rounded-3xl bg-white border border-gray-100 shadow-sm p-6 space-y-3">
+        <div className="rounded-3xl bg-card border border-border shadow-sm p-6 space-y-3">
           {[
             "Safe & private space for you",
             "AI-guided check-ins & journaling",
             "Your own support network",
           ].map((item) => (
-            <div key={item} className="flex items-center gap-3 text-gray-700">
+            <div key={item} className="flex items-center gap-3 text-card-foreground">
               <span className="w-2 h-2 rounded-full bg-[#7BDFF2] shrink-0" />
               <span>{item}</span>
             </div>
@@ -37,7 +37,7 @@ export default function WelcomePage() {
 
         <Link
           href="/disclaimer"
-          className="inline-flex items-center justify-center w-full max-w-xs px-10 py-4 bg-gray-900 text-white rounded-2xl text-lg font-medium hover:bg-black transition-all active:scale-[0.98]"
+          className="inline-flex items-center justify-center w-full max-w-xs px-10 py-4 bg-foreground text-background rounded-2xl text-lg font-medium hover:opacity-90 transition-all active:scale-[0.98]"
         >
           Let&apos;s go
         </Link>

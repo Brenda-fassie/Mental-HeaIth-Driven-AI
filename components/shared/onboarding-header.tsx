@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
 
 function MenuIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -13,13 +14,16 @@ function MenuIcon(props: React.SVGProps<SVGSVGElement>) {
 
 export default function OnboardingHeader() {
   return (
-    <header className="w-full h-16 bg-white/90 backdrop-blur-md flex items-center justify-between px-6 border-b border-gray-100 sticky top-0 z-30">
+    <header className="w-full h-16 bg-background/90 backdrop-blur-md flex items-center justify-between px-6 border-b border-border sticky top-0 z-30">
       <Link href="/" aria-label="Home" className="flex items-center">
-        <Image src="/Logo.svg" alt="Rooftop" width={110} height={34} className="object-contain" priority />
+        <Image src="/Logo.svg" alt="Rooftop" width={110} height={34} className="object-contain dark:invert" priority />
       </Link>
-      <Link href="/menu" aria-label="Open menu" className="p-2 rounded-xl hover:bg-gray-100 transition-colors">
-        <MenuIcon className="w-6 h-6 text-gray-700" />
-      </Link>
+      <div className="flex items-center gap-1">
+        <ThemeToggle />
+        <Link href="/menu" aria-label="Open menu" className="p-2 rounded-xl hover:bg-muted transition-colors text-muted-foreground hover:text-foreground">
+          <MenuIcon className="w-6 h-6" />
+        </Link>
+      </div>
     </header>
   );
 }

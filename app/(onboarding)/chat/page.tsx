@@ -7,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import { ThemeToggle } from '@/components/shared/theme-toggle';
 
 function SendIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -43,7 +44,7 @@ export default function ChatPage() {
   };
 
   return (
-    <main className="relative min-h-screen bg-[#F1F9F7] flex flex-col items-center p-4 md:p-6 overflow-hidden">
+    <main className="relative min-h-screen bg-background flex flex-col items-center p-4 md:p-6 overflow-hidden">
       {/* Background blurs */}
       <div className="absolute top-0 left-0 w-full h-full opacity-40 pointer-events-none">
         <div className="absolute top-[-5%] left-[-5%] w-[400px] h-[400px] bg-[#B2F7EF] rounded-full blur-[100px]" />
@@ -52,17 +53,17 @@ export default function ChatPage() {
 
       <div className="relative z-10 w-full max-w-4xl flex-1 flex flex-col gap-4">
         {/* Header */}
-        <header className="flex items-center justify-between bg-white/90 backdrop-blur-md p-4 rounded-3xl border border-white/60 shadow-sm">
+        <header className="flex items-center justify-between bg-card/90 backdrop-blur-md p-4 rounded-3xl border border-border shadow-sm">
           <div className="flex items-center gap-4">
-            <Link href="/menu" className="p-2 hover:bg-gray-100 rounded-xl transition-colors">
-              <ArrowLeftIcon className="w-5 h-5 text-gray-600" />
+            <Link href="/menu" className="p-2 hover:bg-muted rounded-xl transition-colors">
+              <ArrowLeftIcon className="w-5 h-5 text-muted-foreground" />
             </Link>
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-[#B2F7EF] flex items-center justify-center border border-[#7BDFF2]/40">
                 <span className="text-teal-700 font-bold text-sm">S</span>
               </div>
               <div>
-                <h1 className="font-semibold text-gray-900 leading-none">Sarah</h1>
+                <h1 className="font-semibold text-card-foreground leading-none">Sarah</h1>
                 <p className="text-xs text-emerald-500 font-medium mt-0.5 flex items-center gap-1">
                   <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
                   Always here to listen
@@ -70,20 +71,23 @@ export default function ChatPage() {
               </div>
             </div>
           </div>
-          <Image src="/Logo.svg" alt="Rooftop" width={80} height={30} className="opacity-50" />
+          <div className="flex items-center gap-1">
+            <ThemeToggle />
+            <Image src="/Logo.svg" alt="Rooftop" width={80} height={30} className="opacity-50 dark:invert" />
+          </div>
         </header>
 
         {/* Chat Area */}
-        <Card className="flex-1 flex flex-col bg-white/80 backdrop-blur-md border-white/50 shadow-xl rounded-[32px] overflow-hidden">
+        <Card className="flex-1 flex flex-col bg-card/80 backdrop-blur-md border-border shadow-xl rounded-[32px] overflow-hidden">
           <CardContent className="flex-1 overflow-y-auto p-4 md:p-6 space-y-6">
             {messages.length === 0 && (
               <div className="h-full flex flex-col items-center justify-center text-center space-y-4 py-12">
-                <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center">
-                  <Image src="/Logo.svg" alt="Rooftop" width={40} height={40} className="opacity-20" />
+                <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center">
+                  <Image src="/Logo.svg" alt="Rooftop" width={40} height={40} className="opacity-20 dark:invert" />
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-xl font-medium text-slate-900">Start a conversation</h3>
-                  <p className="text-slate-500 max-w-xs mx-auto">
+                  <h3 className="text-xl font-medium text-foreground">Start a conversation</h3>
+                  <p className="text-muted-foreground max-w-xs mx-auto">
                     How are you feeling today? You can share anything that&apos;s on your mind.
                   </p>
                 </div>
@@ -98,8 +102,8 @@ export default function ChatPage() {
                 <div
                   className={`max-w-[85%] md:max-w-[75%] p-4 rounded-[24px] ${
                     m.role === 'user'
-                      ? 'bg-slate-900 text-white rounded-br-none'
-                      : 'bg-white border border-slate-100 text-slate-800 rounded-bl-none shadow-sm'
+                      ? 'bg-foreground text-background rounded-br-none'
+                      : 'bg-card border border-border text-card-foreground rounded-bl-none shadow-sm'
                   }`}
                 >
                   <p className="text-lg leading-relaxed whitespace-pre-wrap">
@@ -110,11 +114,11 @@ export default function ChatPage() {
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="bg-white border border-slate-100 p-4 rounded-[24px] rounded-bl-none shadow-sm">
+                <div className="bg-card border border-border p-4 rounded-[24px] rounded-bl-none shadow-sm">
                   <div className="flex gap-1.5">
-                    <span className="w-2 h-2 bg-slate-300 rounded-full animate-bounce" />
-                    <span className="w-2 h-2 bg-slate-300 rounded-full animate-bounce [animation-delay:0.2s]" />
-                    <span className="w-2 h-2 bg-slate-300 rounded-full animate-bounce [animation-delay:0.4s]" />
+                    <span className="w-2 h-2 bg-muted-foreground/40 rounded-full animate-bounce" />
+                    <span className="w-2 h-2 bg-muted-foreground/40 rounded-full animate-bounce [animation-delay:0.2s]" />
+                    <span className="w-2 h-2 bg-muted-foreground/40 rounded-full animate-bounce [animation-delay:0.4s]" />
                   </div>
                 </div>
               </div>
@@ -122,23 +126,23 @@ export default function ChatPage() {
           </CardContent>
 
           {/* Input Area */}
-          <div className="p-4 md:p-6 bg-slate-50/50 border-t border-slate-100">
+          <div className="p-4 md:p-6 bg-muted/50 border-t border-border">
             <form onSubmit={handleSubmit} className="relative flex items-center gap-2">
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Type your message..."
-                className="flex-1 h-14 rounded-2xl bg-white border-none shadow-sm text-lg px-6 focus-visible:ring-cyan-200 transition-all"
+                className="flex-1 h-14 rounded-2xl bg-card border-none shadow-sm text-lg px-6 focus-visible:ring-[#7BDFF2] transition-all"
               />
               <Button 
                 type="submit" 
                 disabled={isLoading || !input.trim()}
-                className="h-14 w-14 rounded-2xl bg-slate-900 hover:bg-slate-800 flex items-center justify-center shrink-0 transition-all active:scale-95 disabled:opacity-50"
+                className="h-14 w-14 rounded-2xl bg-foreground hover:opacity-90 flex items-center justify-center shrink-0 transition-all active:scale-95 disabled:opacity-50"
               >
-                <SendIcon className="w-6 h-6 text-white" />
+                <SendIcon className="w-6 h-6 text-background" />
               </Button>
             </form>
-            <p className="text-[10px] text-center text-slate-400 mt-4 uppercase tracking-widest font-medium">
+            <p className="text-[10px] text-center text-muted-foreground mt-4 uppercase tracking-widest font-medium">
               Confidential & Anonymous
             </p>
           </div>

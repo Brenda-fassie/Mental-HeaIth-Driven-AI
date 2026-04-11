@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
 
 export default function Home() {
   const features = [
@@ -11,7 +12,12 @@ export default function Home() {
   ];
 
   return (
-    <main className="relative min-h-screen bg-[#F1F9F7] md:bg-white flex flex-col md:flex-row items-center justify-center px-6 md:px-20 overflow-hidden">
+    <main className="relative min-h-screen bg-background flex flex-col md:flex-row items-center justify-center px-6 md:px-20 overflow-hidden">
+      {/* Theme toggle — top right */}
+      <div className="absolute top-6 right-6 z-20">
+        <ThemeToggle />
+      </div>
+
       {/* Birds decoration — desktop only */}
       <div className="hidden md:block absolute top-10 right-10 md:top-20 md:right-40 w-32 opacity-80">
         <Image src="/Birds.svg" alt="Birds" width={150} height={100} />
@@ -26,7 +32,7 @@ export default function Home() {
               src="/Onboard.svg"
               alt="Mental Wellness Illustration"
               fill
-              className="object-contain"
+              className="object-contain dark:opacity-90"
               priority
             />
           </div>
@@ -41,20 +47,20 @@ export default function Home() {
               alt="Rooftop"
               width={300}
               height={100}
-              className="object-contain"
+              className="object-contain dark:invert"
             />
           </div>
 
           {/* Heading + tagline — visible on ALL breakpoints */}
           <div className="space-y-4 md:space-y-6">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-medium text-gray-900 leading-[1.1] font-[family-name:var(--font-overlock)]">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-medium text-foreground leading-[1.1] font-[family-name:var(--font-overlock)]">
               Mental Wellness
             </h1>
-            <p className="text-lg md:text-2xl text-gray-600 leading-snug max-w-sm">
+            <p className="text-lg md:text-2xl text-muted-foreground leading-snug max-w-sm">
               The realest conversations happen on the rooftop
             </p>
 
-            <ul className="text-sm md:text-base text-gray-400 space-y-1.5">
+            <ul className="text-sm md:text-base text-muted-foreground space-y-1.5">
               {features.map((item) => (
                 <li key={item} className="flex items-center gap-2">
                   <span className="w-1 h-1 rounded-full bg-[#7BDFF2] inline-block" />
@@ -68,12 +74,12 @@ export default function Home() {
           <div className="w-full md:w-auto">
             <Link
               href="/signup"
-              className="group relative inline-flex w-full max-w-xs md:w-auto items-center justify-center px-10 py-3.5 border border-black text-xl font-medium tracking-wide text-black overflow-hidden transition-colors duration-300 ease-in-out"
+              className="group relative inline-flex w-full max-w-xs md:w-auto items-center justify-center px-10 py-3.5 border border-foreground text-xl font-medium tracking-wide text-foreground overflow-hidden transition-colors duration-300 ease-in-out"
             >
-              <span className="relative z-10 group-hover:text-white transition-colors duration-300">
+              <span className="relative z-10 group-hover:text-background transition-colors duration-300">
                 Start today
               </span>
-              <div className="absolute inset-0 bg-black -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-in-out" />
+              <div className="absolute inset-0 bg-foreground -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-in-out" />
             </Link>
           </div>
         </div>

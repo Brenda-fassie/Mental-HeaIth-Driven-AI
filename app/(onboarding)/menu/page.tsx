@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
 
 function CloseIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -23,15 +24,18 @@ export default function MenuPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-[#F1F9F7] flex flex-col">
+    <main className="min-h-screen bg-background flex flex-col">
       {/* Top bar */}
       <div className="w-full flex items-center justify-between px-6 pt-6 pb-4">
         <Link href="/" aria-label="Home">
-          <Image src="/Logo.svg" alt="Rooftop" width={110} height={34} className="object-contain" />
+          <Image src="/Logo.svg" alt="Rooftop" width={110} height={34} className="object-contain dark:invert" />
         </Link>
-        <Link href="/chat" aria-label="Go to chat" className="p-2 rounded-xl hover:bg-white/60 transition-colors">
-          <CloseIcon className="w-7 h-7 text-gray-800" />
-        </Link>
+        <div className="flex items-center gap-1">
+          <ThemeToggle />
+          <Link href="/chat" aria-label="Go to chat" className="p-2 rounded-xl hover:bg-muted transition-colors text-muted-foreground hover:text-foreground">
+            <CloseIcon className="w-7 h-7" />
+          </Link>
+        </div>
       </div>
 
       {/* Menu card */}
