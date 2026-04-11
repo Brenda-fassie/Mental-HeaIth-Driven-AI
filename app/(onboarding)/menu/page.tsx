@@ -1,8 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
 
 function CloseIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" {...props}>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true" {...props}>
       <line x1="18" y1="6" x2="6" y2="18" />
       <line x1="6" y1="6" x2="18" y2="18" />
     </svg>
@@ -22,27 +24,43 @@ export default function MenuPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-white flex flex-col items-center justify-start p-4 md:p-12">
-      <div className="w-full max-w-4xl flex justify-end mb-4">
-        <Link href="/profile" aria-label="Close menu">
-          <CloseIcon className="w-12 h-12 text-black hover:rotate-90 transition-transform duration-300" />
+    <main className="min-h-screen bg-background flex flex-col">
+      {/* Top bar */}
+      <div className="w-full flex items-center justify-between px-6 pt-6 pb-4">
+        <Link href="/" aria-label="Home">
+          <Image src="/Logo.svg" alt="Rooftop" width={110} height={34} className="object-contain dark:invert" />
         </Link>
+        <div className="flex items-center gap-1">
+          <ThemeToggle />
+          <Link href="/chat" aria-label="Go to chat" className="p-2 rounded-xl hover:bg-muted transition-colors text-muted-foreground hover:text-foreground">
+            <CloseIcon className="w-7 h-7" />
+          </Link>
+        </div>
       </div>
 
-      <div className="w-full max-w-md bg-[#86E3F0] p-10 md:p-16 shadow-lg">
-        <h2 className="text-3xl font-medium text-gray-800 mb-10">Sarah&apos;s</h2>
+      {/* Menu card */}
+      <div className="flex-1 flex items-start justify-center px-4 pb-8">
+        <div className="w-full max-w-sm bg-[#7BDFF2] rounded-3xl shadow-xl overflow-hidden">
+          <div className="px-8 pt-8 pb-4">
+            <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-teal-800/60">Menu</p>
+            <h2 className="text-3xl font-[family-name:var(--font-overlock)] font-bold text-gray-900 mt-1">
+              Sarah&apos;s
+            </h2>
+          </div>
 
-        <nav className="flex flex-col gap-6">
-          {menuItems.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="text-2xl font-normal text-gray-900 hover:pl-4 hover:text-white transition-all duration-200 border-b border-black/10 pb-2 last:border-0"
-            >
-              {item.name}
-            </Link>
-          ))}
-        </nav>
+          <nav className="px-8 pb-8 flex flex-col">
+            {menuItems.map((item, i) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={`flex items-center justify-between py-3.5 text-xl font-medium text-gray-900 hover:text-white hover:translate-x-1 transition-all duration-200 ${i < menuItems.length - 1 ? "border-b border-teal-400/40" : ""}`}
+              >
+                {item.name}
+                <span className="text-teal-700/50 text-lg">›</span>
+              </Link>
+            ))}
+          </nav>
+        </div>
       </div>
     </main>
   );
