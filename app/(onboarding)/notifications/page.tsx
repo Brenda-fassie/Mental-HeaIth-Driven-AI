@@ -1,4 +1,5 @@
 import OnboardingHeader from "@/components/shared/onboarding-header";
+import Link from "next/link";
 
 const nudges = [
   {
@@ -47,6 +48,15 @@ export default function NotificationsPage() {
                 <p className="mt-3 text-xs text-gray-500">{nudge.time}</p>
               </article>
             ))}
+          </div>
+
+          <div className="mt-12 flex justify-center">
+            <Link 
+              href="/settings" 
+              className="px-12 py-4 bg-black text-white rounded-full text-xl font-medium hover:bg-gray-800 transition-all text-center"
+            >
+              Next
+            </Link>
           </div>
         </section>
       </main>

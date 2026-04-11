@@ -1,4 +1,5 @@
 import OnboardingHeader from "@/components/shared/onboarding-header";
+import Link from "next/link";
 
 const resources = [
   "Crisis Helpline",
@@ -57,6 +58,15 @@ export default function ContactsPage() {
               If you mention self-harm signals, Sarah can surface these immediately and help draft a message.
             </p>
           </aside>
+        </div>
+
+        <div className="mt-12 flex justify-center">
+          <Link 
+            href="/notifications" 
+            className="px-12 py-4 bg-black text-white rounded-full text-xl font-medium hover:bg-gray-800 transition-all text-center"
+          >
+            Next
+          </Link>
         </div>
       </main>
     </div>

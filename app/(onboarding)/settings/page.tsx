@@ -1,4 +1,5 @@
 import OnboardingHeader from "@/components/shared/onboarding-header";
+import Link from "next/link";
 
 const themes = ["Mint Calm", "Pink Warmth", "Blue Clarity", "Neutral Minimal"];
 
@@ -47,9 +48,17 @@ export default function SettingsPage() {
             </div>
           </div>
 
-          <button className="mt-8 px-8 py-3 rounded-xl bg-[#D3D8E2] text-gray-900 hover:bg-black hover:text-white transition-colors">
-            Save Preferences
-          </button>
+          <div className="mt-8 flex gap-4">
+            <button className="px-8 py-3 rounded-xl bg-[#D3D8E2] text-gray-900 hover:bg-black hover:text-white transition-all duration-300">
+              Save Preferences
+            </button>
+            <Link 
+              href="/menu" 
+              className="px-8 py-3 bg-black text-white rounded-xl text-center font-medium hover:bg-gray-800 transition-all"
+            >
+              Finish Setup
+            </Link>
+          </div>
         </div>
       </main>
     </div>

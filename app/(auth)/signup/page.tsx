@@ -45,15 +45,23 @@ export default function SignupPage() {
 							</div>
 						</div>
 
-						<button className="w-full py-5 bg-[#D3D8E2] rounded-xl text-xl font-medium text-gray-700 hover:bg-black hover:text-white transition-all duration-300">
+						<Link 
+							href="/welcome" 
+							className="block w-full py-5 bg-[#D3D8E2] rounded-xl text-xl font-medium text-gray-700 text-center hover:bg-black hover:text-white transition-all duration-300"
+						>
 							Create Account
-						</button>
+						</Link>
 
 						<div className="text-center space-y-3 pt-4">
 							<p className="text-[11px] text-gray-400 uppercase tracking-wider">All your Information is anonymized</p>
-							<Link href="/terms" className="text-xs text-blue-500 underline hover:text-blue-700">
-								Terms of Service
-							</Link>
+							<div className="flex flex-col gap-2">
+								<Link href="/login" className="text-xs text-blue-500 hover:text-blue-700">
+									Already have an account? Login
+								</Link>
+								<Link href="/terms" className="text-xs text-gray-400 underline hover:text-gray-600">
+									Terms of Service
+								</Link>
+							</div>
 						</div>
 					</form>
 				</div>

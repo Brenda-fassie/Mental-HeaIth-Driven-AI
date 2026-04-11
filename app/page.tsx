@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   const features = [
@@ -57,9 +58,12 @@ export default function Home() {
           </div>
 
           <div className="pt-4 w-full md:w-auto flex justify-center md:justify-start">
-            <button className="w-full max-w-70 md:w-auto px-10 py-3 md:py-2.5 border border-black text-2xl font-light tracking-wide hover:bg-blue-accent hover:text-white transition-all duration-300">
+            <Link 
+              href="/signup" 
+              className="w-full max-w-70 md:w-auto px-10 py-3 md:py-2.5 border border-black text-2xl font-light tracking-wide text-center hover:bg-black hover:text-white transition-all duration-300"
+            >
               Start today
-            </button>
+            </Link>
           </div>
         </div>
       </div>
