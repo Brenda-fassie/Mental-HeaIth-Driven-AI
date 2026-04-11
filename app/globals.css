@@ -7,6 +7,7 @@
   --blue-accent: #7BDFF2;
   --pink-accent: #F2B5D4;
   --neutral: #EFF7F6;
+  --mint: #B2F7EF;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -52,6 +53,8 @@
   --font-subheading: var(--font-cantarell);
   --font-normal: var(--font-amiko);
   --font-sans: var(--font-sans);
+  --font-overlock: var(--font-overlock);
+  --color-mint: var(--mint);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -132,10 +135,11 @@ body {
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    scroll-behavior: smooth;
+    @apply font-sans;
+  }
   body {
     @apply bg-background text-foreground;
-  }
-  html {
-    @apply font-sans;
   }
 }

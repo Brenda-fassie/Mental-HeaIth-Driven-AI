@@ -45,32 +45,32 @@ export default function ChatPage() {
   return (
     <main className="relative min-h-screen bg-[#F1F9F7] flex flex-col items-center p-4 md:p-6 overflow-hidden">
       {/* Background blurs */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none">
+      <div className="absolute top-0 left-0 w-full h-full opacity-40 pointer-events-none">
         <div className="absolute top-[-5%] left-[-5%] w-[400px] h-[400px] bg-[#B2F7EF] rounded-full blur-[100px]" />
         <div className="absolute bottom-[-5%] right-[-5%] w-[400px] h-[400px] bg-[#F2B5D4] rounded-full blur-[100px]" />
       </div>
 
       <div className="relative z-10 w-full max-w-4xl flex-1 flex flex-col gap-4">
         {/* Header */}
-        <header className="flex items-center justify-between bg-white/80 backdrop-blur-md p-4 rounded-3xl border border-white/50 shadow-sm">
+        <header className="flex items-center justify-between bg-white/90 backdrop-blur-md p-4 rounded-3xl border border-white/60 shadow-sm">
           <div className="flex items-center gap-4">
-            <Link href="/menu" className="p-2 hover:bg-slate-100 rounded-full transition-colors">
-              <ArrowLeftIcon className="w-6 h-6 text-slate-600" />
+            <Link href="/menu" className="p-2 hover:bg-gray-100 rounded-xl transition-colors">
+              <ArrowLeftIcon className="w-5 h-5 text-gray-600" />
             </Link>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-cyan-100 flex items-center justify-center border border-cyan-200">
-                <span className="text-cyan-600 font-bold">S</span>
+              <div className="w-10 h-10 rounded-full bg-[#B2F7EF] flex items-center justify-center border border-[#7BDFF2]/40">
+                <span className="text-teal-700 font-bold text-sm">S</span>
               </div>
               <div>
-                <h1 className="font-semibold text-slate-900 leading-none">Sarah</h1>
-                <p className="text-xs text-green-500 font-medium mt-1 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
+                <h1 className="font-semibold text-gray-900 leading-none">Sarah</h1>
+                <p className="text-xs text-emerald-500 font-medium mt-0.5 flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
                   Always here to listen
                 </p>
               </div>
             </div>
           </div>
-          <Image src="/Logo.svg" alt="Rooftop" width={80} height={30} className="opacity-40 grayscale" />
+          <Image src="/Logo.svg" alt="Rooftop" width={80} height={30} className="opacity-50" />
         </header>
 
         {/* Chat Area */}
