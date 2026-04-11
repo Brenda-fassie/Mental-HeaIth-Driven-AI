@@ -2,12 +2,51 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function SignupPage() {
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [name, setName] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<string | null>(null);
+	const router = useRouter();
+	const supabase = createClient();
+
+	const handleSignup = async (e: React.FormEvent) => {
+		e.preventDefault();
+		setIsLoading(true);
+		setError(null);
+
+		try {
+			const { data, error } = await supabase.auth.signUp({
+				email,
+				password,
+				options: {
+					data: {
+						full_name: name,
+					},
+				},
+			});
+
+			if (error) throw error;
+
+			if (data.user) {
+				router.push("/welcome");
+			}
+		} catch (err: any) {
+			setError(err.message || "An error occurred during signup.");
+		} finally {
+			setIsLoading(false);
+		}
+	};
+
 	return (
 		<main className="relative min-h-screen bg-slate-50/50 flex items-center justify-center p-6 overflow-hidden">
 			{/* Subtle Background Ambient Blurs */}
@@ -59,11 +98,19 @@ export default function SignupPage() {
 							</CardDescription>
 						</CardHeader>
 						<CardContent className="space-y-6">
-							<form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+							<form className="space-y-5" onSubmit={handleSignup}>
+								{error && (
+									<div className="p-3 bg-red-50 border border-red-100 text-red-600 text-sm rounded-xl">
+										{error}
+									</div>
+								)}
 								<div className="space-y-2">
 									<Label htmlFor="name" className="text-xs font-semibold uppercase tracking-wider text-slate-400">Full Name</Label>
 									<Input 
 										id="name" 
+										required
+										value={name}
+										onChange={(e) => setName(e.target.value)}
 										placeholder="Sarah Parker" 
 										className="h-14 rounded-2xl bg-slate-50 border-slate-100 focus-visible:ring-cyan-200 transition-all text-lg px-5" 
 									/>
@@ -73,17 +120,33 @@ export default function SignupPage() {
 									<Input 
 										id="email" 
 										type="email" 
+										required
+										value={email}
+										onChange={(e) => setEmail(e.target.value)}
 										placeholder="sarah@example.com" 
 										className="h-14 rounded-2xl bg-slate-50 border-slate-100 focus-visible:ring-cyan-200 transition-all text-lg px-5" 
 									/>
 								</div>
+								<div className="space-y-2">
+									<Label htmlFor="password" title="At least 6 characters" className="text-xs font-semibold uppercase tracking-wider text-slate-400">Password</Label>
+									<Input 
+										id="password" 
+										type="password" 
+										required
+										value={password}
+										onChange={(e) => setPassword(e.target.value)}
+										placeholder="••••••••" 
+										className="h-14 rounded-2xl bg-slate-50 border-slate-100 focus-visible:ring-cyan-200 transition-all text-lg px-5" 
+									/>
+								</div>
 								<div className="pt-2">
-									<Link 
-										href="/welcome" 
-										className="flex items-center justify-center w-full h-14 rounded-2xl text-lg font-semibold bg-slate-900 text-white hover:bg-slate-800 shadow-xl shadow-slate-200 transition-all active:scale-[0.98]"
+									<Button 
+										type="submit"
+										disabled={isLoading}
+										className="w-full h-14 rounded-2xl text-lg font-semibold bg-slate-900 hover:bg-slate-800 shadow-xl shadow-slate-200 transition-all active:scale-[0.98] disabled:opacity-50"
 									>
-										Get Started
-									</Link>
+										{isLoading ? "Creating account..." : "Get Started"}
+									</Button>
 								</div>
 							</form>
 

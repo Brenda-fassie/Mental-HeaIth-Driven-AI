@@ -2,12 +2,45 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function LoginPage() {
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<string | null>(null);
+	const router = useRouter();
+	const supabase = createClient();
+
+	const handleLogin = async (e: React.FormEvent) => {
+		e.preventDefault();
+		setIsLoading(true);
+		setError(null);
+
+		try {
+			const { data, error } = await supabase.auth.signInWithPassword({
+				email,
+				password,
+			});
+
+			if (error) throw error;
+
+			if (data.user) {
+				router.push("/menu");
+			}
+		} catch (err: any) {
+			setError(err.message || "Invalid email or password.");
+		} finally {
+			setIsLoading(false);
+		}
+	};
+
 	return (
 		<main className="relative min-h-screen bg-slate-50/50 flex items-center justify-center p-6 overflow-hidden">
 			{/* Subtle Background Ambient Blurs - Matching Signup */}
@@ -47,19 +80,27 @@ export default function LoginPage() {
 							</CardDescription>
 						</CardHeader>
 						<CardContent className="space-y-6">
-							<form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+							<form className="space-y-5" onSubmit={handleLogin}>
+								{error && (
+									<div className="p-3 bg-red-50 border border-red-100 text-red-600 text-sm rounded-xl">
+										{error}
+									</div>
+								)}
 								<div className="space-y-2">
 									<Label htmlFor="email" className="text-xs font-semibold uppercase tracking-wider text-slate-400">Email address</Label>
 									<Input 
 										id="email" 
 										type="email" 
+										required
+										value={email}
+										onChange={(e) => setEmail(e.target.value)}
 										placeholder="sarah@example.com" 
 										className="h-14 rounded-2xl bg-slate-50 border-slate-100 focus-visible:ring-cyan-200 transition-all text-lg px-5" 
 									/>
 								</div>
 								<div className="space-y-2">
 									<div className="flex justify-between items-center px-1">
-										<Label htmlFor="password" className="text-xs font-semibold uppercase tracking-wider text-slate-400">Password</Label>
+										<Label htmlFor="password" title="At least 6 characters" className="text-xs font-semibold uppercase tracking-wider text-slate-400">Password</Label>
 										<span className="text-xs font-bold text-slate-400 cursor-not-allowed opacity-50">
 											Forgot?
 										</span>
@@ -67,17 +108,21 @@ export default function LoginPage() {
 									<Input 
 										id="password" 
 										type="password" 
+										required
+										value={password}
+										onChange={(e) => setPassword(e.target.value)}
 										placeholder="••••••••" 
 										className="h-14 rounded-2xl bg-slate-50 border-slate-100 focus-visible:ring-cyan-200 transition-all text-lg px-5" 
 									/>
 								</div>
 								<div className="pt-2">
-									<Link 
-										href="/welcome" 
-										className="flex items-center justify-center w-full h-14 rounded-2xl text-lg font-semibold bg-slate-900 text-white hover:bg-slate-800 shadow-xl shadow-slate-200 transition-all active:scale-[0.98]"
+									<Button 
+										type="submit"
+										disabled={isLoading}
+										className="w-full h-14 rounded-2xl text-lg font-semibold bg-slate-900 hover:bg-slate-800 shadow-xl shadow-slate-200 transition-all active:scale-[0.98] disabled:opacity-50"
 									>
-										Sign In
-									</Link>
+										{isLoading ? "Signing in..." : "Sign In"}
+									</Button>
 								</div>
 							</form>
 
