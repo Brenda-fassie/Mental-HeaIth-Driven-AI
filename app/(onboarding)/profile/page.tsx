@@ -34,7 +34,7 @@ export default function ProfilePage() {
 
         <Link
           href="/contacts"
-          className="inline-flex items-center justify-center w-full max-w-xs px-10 py-4 bg-foreground text-background rounded-2xl text-lg font-medium hover:opacity-90 transition-all active:scale-[0.98]"
+          className="inline-flex items-center justify-center w-full max-w-xs px-10 py-4 bg-[#7BDFF2] text-gray-900 rounded-2xl text-lg font-semibold hover:bg-[#5ED4E8] transition-colors active:scale-[0.98]"
         >
           Next
         </Link>

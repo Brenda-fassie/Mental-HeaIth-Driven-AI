@@ -125,7 +125,7 @@ className="h-14 rounded-2xl bg-muted border-transparent focus-visible:ring-[#7BD
 <Button 
 type="submit"
 disabled={isLoading}
-className="w-full h-14 rounded-2xl text-base font-semibold bg-foreground text-background hover:opacity-90 shadow-lg transition-all active:scale-[0.98] disabled:opacity-50"
+                className="w-full h-14 rounded-2xl text-base font-semibold bg-[#7BDFF2] text-gray-900 hover:bg-[#5ED4E8] shadow-sm transition-all active:scale-[0.98] disabled:opacity-50"
 >
 {isLoading ? "Signing in…" : "Sign In"}
 </Button>

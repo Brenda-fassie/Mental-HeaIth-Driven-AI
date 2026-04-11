@@ -12,7 +12,7 @@ export default function Home() {
   ];
 
   return (
-    <main className="relative min-h-screen bg-background flex flex-col md:flex-row items-center justify-center px-6 md:px-20 overflow-hidden">
+    <main className="relative min-h-screen bg-[#F1F9F7] dark:bg-background flex flex-col md:flex-row items-center justify-center px-6 md:px-20 overflow-hidden">
       {/* Theme toggle — top right */}
       <div className="absolute top-6 right-6 z-20">
         <ThemeToggle />
@@ -27,7 +27,7 @@ export default function Home() {
 
         {/* Illustration — sits between text and CTA on mobile */}
         <div className="order-2 md:order-2 flex justify-center items-center md:justify-end mt-2 md:mt-0">
-          <div className="relative w-[90vw] max-w-sm md:w-[140vw] lg:w-[160vw] md:-mr-[40%] lg:-mr-[50%] aspect-square transition-transform duration-700 hover:scale-105">
+          <div className="relative w-[95vw] max-w-md md:w-[150vw] lg:w-[170vw] md:-mr-[40%] lg:-mr-[50%] aspect-square transition-transform duration-700 hover:scale-105">
             <Image
               src="/Onboard.svg"
               alt="Mental Wellness Illustration"
@@ -74,12 +74,9 @@ export default function Home() {
           <div className="w-full md:w-auto">
             <Link
               href="/signup"
-              className="group relative inline-flex w-full max-w-xs md:w-auto items-center justify-center px-10 py-3.5 border border-foreground text-xl font-medium tracking-wide text-foreground overflow-hidden transition-colors duration-300 ease-in-out"
+              className="inline-flex w-full max-w-xs md:w-auto items-center justify-center px-10 py-3.5 bg-[#7BDFF2] text-gray-900 rounded-2xl text-xl font-semibold hover:bg-[#5ED4E8] transition-colors duration-200 active:scale-[0.98]"
             >
-              <span className="relative z-10 group-hover:text-background transition-colors duration-300">
-                Start today
-              </span>
-              <div className="absolute inset-0 bg-foreground -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-in-out" />
+              Start today
             </Link>
           </div>
         </div>

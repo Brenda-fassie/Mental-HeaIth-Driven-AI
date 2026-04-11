@@ -83,7 +83,7 @@ export default function SettingsPage() {
             </button>
             <Link
               href="/menu"
-              className="px-8 py-3.5 bg-foreground text-background rounded-2xl text-center font-medium hover:opacity-90 transition-all active:scale-[0.98]"
+              className="px-8 py-3.5 bg-[#7BDFF2] text-gray-900 rounded-2xl text-center font-semibold hover:bg-[#5ED4E8] transition-colors active:scale-[0.98]"
             >
               Finish Setup
             </Link>

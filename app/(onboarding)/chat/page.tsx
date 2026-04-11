@@ -102,7 +102,7 @@ export default function ChatPage() {
                 <div
                   className={`max-w-[85%] md:max-w-[75%] p-4 rounded-[24px] ${
                     m.role === 'user'
-                      ? 'bg-foreground text-background rounded-br-none'
+                      ? 'bg-[#7BDFF2] text-gray-900 rounded-br-none'
                       : 'bg-card border border-border text-card-foreground rounded-bl-none shadow-sm'
                   }`}
                 >
@@ -137,9 +137,9 @@ export default function ChatPage() {
               <Button 
                 type="submit" 
                 disabled={isLoading || !input.trim()}
-                className="h-14 w-14 rounded-2xl bg-foreground hover:opacity-90 flex items-center justify-center shrink-0 transition-all active:scale-95 disabled:opacity-50"
+                className="h-14 w-14 rounded-2xl bg-[#7BDFF2] hover:bg-[#5ED4E8] flex items-center justify-center shrink-0 transition-all active:scale-95 disabled:opacity-50"
               >
-                <SendIcon className="w-6 h-6 text-background" />
+                <SendIcon className="w-6 h-6 text-gray-900" />
               </Button>
             </form>
             <p className="text-[10px] text-center text-muted-foreground mt-4 uppercase tracking-widest font-medium">

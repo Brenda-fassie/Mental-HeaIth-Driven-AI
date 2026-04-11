@@ -41,7 +41,7 @@ export default function DailiesPage() {
               ))}
             </div>
 
-            <button className="mt-8 w-full md:w-auto px-8 py-3 rounded-2xl bg-foreground text-background hover:opacity-90 transition-colors">
+            <button className="mt-8 w-full md:w-auto px-8 py-3 rounded-2xl bg-[#7BDFF2] text-gray-900 font-semibold hover:bg-[#5ED4E8] transition-colors active:scale-[0.98]">
               Save Daily Check-in
             </button>
           </section>
