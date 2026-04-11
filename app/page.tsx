@@ -25,9 +25,9 @@ export default function Home() {
 
       <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-16 items-center py-10 md:py-0">
 
-        {/* Illustration — sits between text and CTA on mobile */}
-        <div className="order-2 md:order-2 flex justify-center items-center md:justify-end mt-2 md:mt-0">
-          <div className="relative w-[95vw] max-w-md md:w-[150vw] lg:w-[170vw] md:-mr-[40%] lg:-mr-[50%] aspect-square transition-transform duration-700 hover:scale-105">
+        {/* Illustration — small on mobile, large bleed on desktop */}
+        <div className="order-2 md:order-2 flex justify-center items-center md:justify-end mt-4 md:mt-0">
+          <div className="relative w-52 h-52 md:w-[150vw] md:h-auto lg:w-[170vw] md:aspect-square md:-mr-[40%] lg:-mr-[50%] transition-transform duration-700 hover:scale-105">
             <Image
               src="/Onboard.svg"
               alt="Mental Wellness Illustration"
