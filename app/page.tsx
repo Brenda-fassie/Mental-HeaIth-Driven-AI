@@ -60,9 +60,12 @@ export default function Home() {
           <div className="pt-4 w-full md:w-auto flex justify-center md:justify-start">
             <Link 
               href="/signup" 
-              className="w-full max-w-70 md:w-auto px-10 py-3 md:py-2.5 border border-black text-2xl font-light tracking-wide text-center hover:bg-black hover:text-white transition-all duration-300"
+              className="group relative w-full max-w-70 md:w-auto px-10 py-3 md:py-2.5 border border-black text-2xl font-medium tracking-wide text-center text-black overflow-hidden transition-colors duration-300 ease-in-out"
             >
-              Start today
+              <span className="relative z-10 group-hover:text-white transition-colors duration-300">
+                Start today
+              </span>
+              <div className="absolute inset-0 bg-black -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-in-out" />
             </Link>
           </div>
         </div>

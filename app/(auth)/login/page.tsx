@@ -54,9 +54,12 @@ export default function LoginPage() {
 
 						<Link 
 							href="/welcome" 
-							className="block w-full py-5 bg-[#D3D8E2] rounded-xl text-xl font-medium text-gray-700 text-center hover:bg-black hover:text-white transition-all duration-300"
+							className="group relative block w-full py-5 bg-[#D3D8E2] rounded-xl text-xl font-medium text-gray-700 text-center overflow-hidden transition-all duration-300"
 						>
-							Sign In
+							<span className="relative z-10 group-hover:text-white transition-colors duration-300">
+								Sign In
+							</span>
+							<div className="absolute inset-0 bg-black -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-in-out" />
 						</Link>
 
 						<div className="text-center space-y-3 pt-4">
