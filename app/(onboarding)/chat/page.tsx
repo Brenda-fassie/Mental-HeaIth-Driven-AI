@@ -5,8 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
-import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ThemeToggle } from '@/components/shared/theme-toggle';
 import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
@@ -36,21 +35,52 @@ const SUGGESTED_PROMPTS = [
   "I want to talk about something that's been on my mind.",
 ];
 
+type StoredMessage = { id: string; role: string; content: string };
+
 export default function ChatPage() {
   const [input, setInput] = useState('');
-  const { messages, status, sendMessage } = useChat();
-  const isLoading = status === 'streaming' || status === 'submitted';
+  const [historyLoaded, setHistoryLoaded] = useState(false);
+  const bottomRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    send(input);
-  };
+  const { messages, setMessages, status, sendMessage } = useChat();
+  const isLoading = status === 'streaming' || status === 'submitted';
+
+  // Load chat history from Supabase on first mount
+  useEffect(() => {
+    fetch('/api/messages')
+      .then((r) => r.json())
+      .then(({ messages: history }: { messages: StoredMessage[] }) => {
+        if (Array.isArray(history) && history.length > 0) {
+          setMessages(
+            history.map((m) => ({
+              id: m.id,
+              role: m.role as 'user' | 'assistant',
+              parts: [{ type: 'text' as const, text: m.content }],
+              content: m.content,
+            }))
+          );
+        }
+      })
+      .catch(() => {/* history unavailable — start fresh */})
+      .finally(() => setHistoryLoaded(true));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Auto-scroll to bottom when messages change
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, isLoading]);
 
   const send = (text: string) => {
     if (!text.trim() || isLoading) return;
     sendMessage({ text });
     setInput('');
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    send(input);
   };
 
   const handleLogout = async () => {
@@ -61,8 +91,8 @@ export default function ChatPage() {
 
   return (
     <main className="relative min-h-screen bg-background flex flex-col items-center p-4 md:p-6 overflow-hidden">
-      {/* Background blurs */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-40 pointer-events-none">
+      {/* Ambient blurs */}
+      <div className="absolute inset-0 opacity-40 pointer-events-none">
         <div className="absolute top-[-5%] left-[-5%] w-[400px] h-[400px] bg-[#B2F7EF] rounded-full blur-[100px]" />
         <div className="absolute bottom-[-5%] right-[-5%] w-[400px] h-[400px] bg-[#F2B5D4] rounded-full blur-[100px]" />
       </div>
@@ -94,10 +124,23 @@ export default function ChatPage() {
           </div>
         </header>
 
-        {/* Chat Area */}
+        {/* Chat area */}
         <Card className="flex-1 flex flex-col bg-card/80 backdrop-blur-md border-border shadow-xl rounded-[32px] overflow-hidden">
           <CardContent className="flex-1 overflow-y-auto p-4 md:p-6 space-y-6">
-            {messages.length === 0 && (
+
+            {/* Loading history indicator */}
+            {!historyLoaded && (
+              <div className="flex items-center justify-center py-12">
+                <div className="flex gap-1.5">
+                  <span className="w-2 h-2 bg-muted-foreground/30 rounded-full animate-bounce" />
+                  <span className="w-2 h-2 bg-muted-foreground/30 rounded-full animate-bounce [animation-delay:0.2s]" />
+                  <span className="w-2 h-2 bg-muted-foreground/30 rounded-full animate-bounce [animation-delay:0.4s]" />
+                </div>
+              </div>
+            )}
+
+            {/* Empty state — only show after history has been attempted */}
+            {historyLoaded && messages.length === 0 && (
               <div className="h-full flex flex-col items-center justify-center text-center space-y-6 py-12">
                 <div className="w-20 h-20 bg-[#B2F7EF]/40 rounded-full flex items-center justify-center">
                   <Image src="/Logo.svg" alt="Rooftop" width={40} height={40} className="opacity-40 dark:invert" />
@@ -122,6 +165,7 @@ export default function ChatPage() {
               </div>
             )}
 
+            {/* Messages */}
             {messages.map((m) => (
               <div
                 key={m.id}
@@ -135,14 +179,16 @@ export default function ChatPage() {
                   }`}
                 >
                   <p className="text-base leading-relaxed whitespace-pre-wrap">
-                    {Array.isArray(m.parts)
-                      ? m.parts.map((part) => (part.type === 'text' ? part.text : '')).join('')
-                      : ''}
+                    {m.parts
+                      .filter((p) => p.type === 'text')
+                      .map((p) => (p as { type: 'text'; text: string }).text)
+                      .join('')}
                   </p>
                 </div>
               </div>
             ))}
 
+            {/* Typing indicator */}
             {isLoading && (
               <div className="flex justify-start">
                 <div className="bg-card border border-border p-4 rounded-[24px] rounded-bl-none shadow-sm">
@@ -154,15 +200,17 @@ export default function ChatPage() {
                 </div>
               </div>
             )}
+
+            <div ref={bottomRef} />
           </CardContent>
 
-          {/* Input Area */}
+          {/* Input */}
           <div className="p-4 md:p-6 bg-muted/50 border-t border-border">
-            <form onSubmit={handleSubmit} className="relative flex items-center gap-2">
+            <form onSubmit={handleSubmit} className="flex items-center gap-2">
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Type your message..."
+                placeholder="Type your message…"
                 className="flex-1 h-14 rounded-2xl bg-card border-none shadow-sm text-base px-6 focus-visible:ring-[#7BDFF2] transition-all"
               />
               <Button

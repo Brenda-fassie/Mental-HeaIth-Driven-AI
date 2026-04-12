@@ -35,8 +35,8 @@ if (error) throw error;
 if (data.user) {
 router.push("/chat");
 }
-} catch (err: any) {
-setError(err.message || "Invalid email or password.");
+} catch (err) {
+setError(err instanceof Error ? err.message : "Invalid email or password.");
 } finally {
 setIsLoading(false);
 }
