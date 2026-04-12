@@ -39,7 +39,7 @@ full_name: name,
 if (error) throw error;
 
 if (data.user) {
-router.push("/welcome");
+router.push("/chat");
 }
 } catch (err: any) {
 setError(err.message || "An error occurred during signup.");
@@ -78,17 +78,6 @@ Experience a new way of personal growth. Secure, private, and designed for your 
 </p>
 </div>
 
-<div className="flex items-center space-x-6">
-<div className="flex -space-x-3">
-{[1, 2, 3, 4].map((i) => (
-<div key={i} className="w-11 h-11 rounded-full border-4 border-background bg-[#B2F7EF] ring-1 ring-[#7BDFF2]/30 shadow-sm" />
-))}
-</div>
-<div className="space-y-1">
-<p className="text-sm font-semibold text-foreground">Join a thriving community</p>
-<p className="text-xs text-muted-foreground">2,400+ members active today</p>
-</div>
-</div>
 </div>
 
 {/* Right Side: Form */}
@@ -117,7 +106,7 @@ id="name"
 required
 value={name}
 onChange={(e) => setName(e.target.value)}
-placeholder="Sarah Parker" 
+placeholder="Your name" 
 className="h-14 rounded-2xl bg-muted border-transparent focus-visible:ring-[#7BDFF2] transition-all text-base px-5" 
 />
 </div>
@@ -129,7 +118,7 @@ type="email"
 required
 value={email}
 onChange={(e) => setEmail(e.target.value)}
-placeholder="sarah@example.com" 
+placeholder="you@example.com" 
 className="h-14 rounded-2xl bg-muted border-transparent focus-visible:ring-[#7BDFF2] transition-all text-base px-5" 
 />
 </div>

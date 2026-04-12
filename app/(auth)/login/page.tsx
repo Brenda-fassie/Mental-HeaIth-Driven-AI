@@ -33,7 +33,7 @@ password,
 if (error) throw error;
 
 if (data.user) {
-router.push("/menu");
+router.push("/chat");
 }
 } catch (err: any) {
 setError(err.message || "Invalid email or password.");
@@ -100,16 +100,14 @@ type="email"
 required
 value={email}
 onChange={(e) => setEmail(e.target.value)}
-placeholder="sarah@example.com" 
+placeholder="you@example.com" 
 className="h-14 rounded-2xl bg-muted border-transparent focus-visible:ring-[#7BDFF2] transition-all text-base px-5" 
 />
 </div>
 <div className="space-y-2">
 <div className="flex justify-between items-center px-1">
 <Label htmlFor="password" className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Password</Label>
-<span className="text-xs font-bold text-muted-foreground/50 cursor-not-allowed">
-Forgot?
-</span>
+<span className="text-xs font-bold text-muted-foreground hover:text-foreground transition-colors"><Link href="/forgot-password">Forgot?</Link></span>
 </div>
 <Input 
 id="password" 

@@ -10,7 +10,7 @@ export async function POST(req: Request) {
   const result = streamText({
     model: google('gemini-flash-latest'),
     messages,
-    system: `You are Sarah, a supportive and empathetic mental health wellness coach on the 'Rooftop' app. 
+    system: `You are a supportive and empathetic mental health wellness coach on the 'Rooftop' app. 
     Your goal is to provide a safe space for reflection and emotional support. 
     Guidelines:
     - Be warm, non-judgmental, and validating.
