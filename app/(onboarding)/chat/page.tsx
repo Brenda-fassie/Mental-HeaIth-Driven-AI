@@ -27,19 +27,14 @@ function ArrowLeftIcon(props: React.SVGProps<SVGSVGElement>) {
 
 export default function ChatPage() {
   const [input, setInput] = useState('');
-  const chatHelpers = useChat() as any;
-  const { messages, status } = chatHelpers;
+  const { messages, status, sendMessage } = useChat();
   const isLoading = status === 'streaming' || status === 'submitted';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
-    
-    if (chatHelpers.append) {
-      chatHelpers.append({ role: 'user', content: input });
-    } else if (chatHelpers.sendMessage) {
-      chatHelpers.sendMessage(input);
-    }
+
+    sendMessage({ text: input });
     setInput('');
   };
 
@@ -94,7 +89,7 @@ export default function ChatPage() {
               </div>
             )}
 
-            {messages.map((m: any) => (
+            {messages.map((m) => (
               <div
                 key={m.id}
                 className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
@@ -107,7 +102,11 @@ export default function ChatPage() {
                   }`}
                 >
                   <p className="text-lg leading-relaxed whitespace-pre-wrap">
-                    {m.content || (Array.isArray(m.parts) ? m.parts.map((p: any) => p.text || '').join('') : '')}
+                    {Array.isArray(m.parts)
+                      ? m.parts
+                          .map((part) => (part.type === 'text' ? part.text : ''))
+                          .join('')
+                      : ''}
                   </p>
                 </div>
               </div>

@@ -20,5 +20,6 @@ export async function POST(req: Request) {
     - Do not provide medical diagnoses or clinical advice.`,
   });
 
-  return result.toTextStreamResponse();
+  // useChat expects the AI SDK data stream protocol
+  return result.toDataStreamResponse();
 }
