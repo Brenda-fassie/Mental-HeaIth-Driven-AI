@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
+import {
+  isGenericConversationTitle,
+  summarizeConversationTitle,
+} from "@/utils/conversations";
 
 type ConversationRow = {
   id: string;
@@ -52,6 +56,36 @@ export default async function ChatPage() {
     (a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
   );
 
+  const resolvedConversations = await Promise.all(
+    conversations.map(async (conversation) => {
+      if (!isGenericConversationTitle(conversation.title)) {
+        return conversation;
+      }
+
+      const { data: conversationMessages } = await supabase
+        .from("messages")
+        .select("role,content")
+        .eq("conversation_id", conversation.id)
+        .order("created_at", { ascending: true })
+        .limit(6);
+
+      const title = await summarizeConversationTitle({
+        supabase,
+        conversationId: conversation.id,
+        existingTitle: conversation.title,
+        messages: (conversationMessages ?? []) as Array<{
+          role: "user" | "assistant";
+          content: string;
+        }>,
+      });
+
+      return {
+        ...conversation,
+        title,
+      };
+    }),
+  );
+
   async function signOut() {
     "use server";
     const supabase = await createClient();
@@ -82,13 +116,13 @@ export default async function ChatPage() {
         </Link>
       </div>
 
-      {conversations.length === 0 ? (
+      {resolvedConversations.length === 0 ? (
         <p className="text-sm text-zinc-600 dark:text-zinc-400">
           No conversations yet. Create one to start chatting.
         </p>
       ) : (
         <ul className="flex flex-col gap-2">
-          {conversations.map((conversation) => (
+          {resolvedConversations.map((conversation) => (
             <li key={conversation.id}>
               <Link
                 href={`/chat/${conversation.id}`}

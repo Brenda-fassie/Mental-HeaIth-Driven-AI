@@ -15,7 +15,7 @@ export default async function NewConversationPage() {
 
   const { error: conversationError } = await supabase.from("conversations").insert({
     id: conversationId,
-    title: "New chat",
+    title: null,
     is_group: false,
     created_by: user.id,
   });

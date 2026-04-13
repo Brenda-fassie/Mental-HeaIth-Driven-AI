@@ -1,6 +1,7 @@
 import { streamText, UIMessage, convertToModelMessages } from "ai";
 import { google } from "@ai-sdk/google";
 import { createClient } from "@/utils/supabase/server";
+import { isGenericConversationTitle, summarizeConversationTitle } from "@/utils/conversations";
 
 function extractLatestUserText(messages: UIMessage[]): string | null {
   const latestUserMessage = [...messages].reverse().find((message) => message.role === "user");
@@ -54,6 +55,12 @@ export async function POST(req: Request) {
 
     const latestUserText = extractLatestUserText(messages);
 
+    const { data: conversationRow } = await supabase
+      .from("conversations")
+      .select("id,title")
+      .eq("id", conversationId)
+      .maybeSingle();
+
     if (latestUserText) {
       await supabase.from("messages").insert({
         conversation_id: conversationId,
@@ -92,6 +99,18 @@ export async function POST(req: Request) {
             updated_at: new Date().toISOString(),
           })
           .eq("id", conversationId);
+
+        if (isGenericConversationTitle(conversationRow?.title)) {
+          await summarizeConversationTitle({
+            supabase,
+            conversationId,
+            existingTitle: conversationRow?.title ?? null,
+            messages: [
+              ...(latestUserText ? [{ role: "user" as const, content: latestUserText }] : []),
+              { role: "assistant" as const, content: assistantText },
+            ],
+          });
+        }
       },
     });
 
