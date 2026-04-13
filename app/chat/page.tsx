@@ -97,14 +97,22 @@ export default async function ChatPage() {
     <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-6 px-6 py-10">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold">Your Conversations</h1>
-        <form action={signOut}>
-          <button
+        <div className="flex items-center gap-2">
+          <Link
+            href="/profile"
             className="rounded border border-zinc-300 px-3 py-1.5 text-sm dark:border-zinc-700"
-            type="submit"
           >
-            Sign out
-          </button>
-        </form>
+            Profile
+          </Link>
+          <form action={signOut}>
+            <button
+              className="rounded border border-zinc-300 px-3 py-1.5 text-sm dark:border-zinc-700"
+              type="submit"
+            >
+              Sign out
+            </button>
+          </form>
+        </div>
       </div>
 
       <div className="flex gap-2">

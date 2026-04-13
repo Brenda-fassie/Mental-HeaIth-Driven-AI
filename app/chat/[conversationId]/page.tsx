@@ -304,12 +304,17 @@ export default async function ConversationPage({ params, searchParams }: PagePro
           <Link href="/chat" className="text-sm text-blue-600">
             Back
           </Link>
-          <Link
-            href="/chat/new"
-            className="rounded bg-blue-600 px-3 py-1.5 text-sm text-white"
-          >
-            New
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link href="/profile" className="text-sm text-blue-600">
+              Profile
+            </Link>
+            <Link
+              href="/chat/new"
+              className="rounded bg-blue-600 px-3 py-1.5 text-sm text-white"
+            >
+              New
+            </Link>
+          </div>
         </div>
 
         <div className="mb-4 rounded border border-zinc-200 p-4 dark:border-zinc-800">
