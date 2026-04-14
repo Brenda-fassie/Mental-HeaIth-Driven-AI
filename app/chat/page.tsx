@@ -42,17 +42,17 @@ export default async function ChatPage() {
     conversationIds.length > 0
       ? await supabase
           .from("conversations")
-          .select("id,title,updated_at")
+          .select("id,title,updated_at, messages(count)")
           .in("id", conversationIds)
-      : { data: [] as ConversationRow[], error: null };
+      : { data: [] as any[], error: null };
 
   if (conversationError) {
     throw new Error(conversationError.message);
   }
 
-  const conversations = (conversationRows ?? []).sort(
-    (a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
-  );
+  const conversations = (conversationRows ?? [])
+    .filter((conv: any) => (conv.messages?.[0]?.count ?? 0) > 0)
+    .sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime());
 
   async function signOut() {
     "use server";

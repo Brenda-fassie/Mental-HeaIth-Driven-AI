@@ -49,7 +49,7 @@ export async function summarizeConversationTitle({
 
   try {
     const { text } = await generateText({
-      model: google("gemini-1.5-flash"),
+      model: google("gemini-2.5-flash"),
       prompt: [
         "Create a concise title for this chat.",
         "Rules:",

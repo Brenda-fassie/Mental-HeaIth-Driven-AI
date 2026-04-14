@@ -4,15 +4,13 @@ import { redirect } from "next/navigation";
 import type { UIMessage } from "ai";
 import { createClient } from "@/utils/supabase/server";
 import ChatThread from "./thread";
-import {
-  isGenericConversationTitle,
-  summarizeConversationTitle,
-} from "@/utils/conversations";
+import { isGenericConversationTitle } from "@/utils/conversations";
 
 type ConversationRow = {
   id: string;
   title: string | null;
   updated_at: string;
+  created_by: string;
 };
 
 type ConversationMembershipRow = {
@@ -95,43 +93,13 @@ export default async function ConversationPage({ params, searchParams }: PagePro
     conversationIds.length > 0
       ? await supabase
           .from("conversations")
-          .select("id,title,updated_at")
+          .select("id,title,updated_at, messages(count)")
           .in("id", conversationIds)
-      : { data: [] as ConversationRow[] };
+      : { data: [] as any[] };
 
-  const conversations = (conversationsData ?? []).sort(
-    (a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
-  );
-
-  const resolvedConversations = await Promise.all(
-    conversations.map(async (conversation) => {
-      if (conversation.id !== conversationId || !isGenericConversationTitle(conversation.title)) {
-        return conversation;
-      }
-
-      const { data: conversationMessages } = await supabase
-        .from("messages")
-        .select("role,content")
-        .eq("conversation_id", conversation.id)
-        .order("created_at", { ascending: true })
-        .limit(6);
-
-      const title = await summarizeConversationTitle({
-        supabase,
-        conversationId: conversation.id,
-        existingTitle: conversation.title,
-        messages: (conversationMessages ?? []) as Array<{
-          role: "user" | "assistant";
-          content: string;
-        }>,
-      });
-
-      return {
-        ...conversation,
-        title,
-      };
-    }),
-  );
+  const resolvedConversations = (conversationsData ?? [])
+    .filter((conv: any) => conv.id === conversationId || (conv.messages?.[0]?.count ?? 0) > 0)
+    .sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime());
 
   const { data: messageRows } = await supabase
     .from("messages")
