@@ -76,7 +76,7 @@ export default function ChatThread({
 
           {messages.map((message) => {
             const isAI = message.role === "assistant";
-            const senderName = messageSenderNames[message.id] ?? (isAI ? "Rooftop Guide" : "You");
+            const senderName = messageSenderNames[message.id] ?? (isAI ? "AI Assistant" : "You");
             
             return (
               <div 
@@ -135,7 +135,7 @@ export default function ChatThread({
                 <span className="h-1 w-1 bg-zinc-400 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
                 <span className="h-1 w-1 bg-zinc-400 rounded-full animate-bounce"></span>
               </div>
-              Rooftop Guide is thinking...
+              AI Assistant is thinking...
             </div>
           )}
           
@@ -190,7 +190,7 @@ export default function ChatThread({
                 className="flex-1 max-h-32 min-h-[40px] resize-none border-none bg-transparent px-2 py-2 text-[15px] focus:ring-0 placeholder:text-zinc-400"
                 value={input}
                 onChange={(event) => setInput(event.target.value)}
-                placeholder="Message Rooftop Guide..."
+                placeholder="Message AI Assistant..."
                 rows={1}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
@@ -224,7 +224,7 @@ export default function ChatThread({
             </div>
           </div>
           <p className="mt-2 text-center text-[10px] text-zinc-400">
-            Rooftop Guide is an AI assistant and does not replace professional medical advice.
+            AI Assistant is an AI and does not replace professional medical advice.
           </p>
         </form>
       </div>

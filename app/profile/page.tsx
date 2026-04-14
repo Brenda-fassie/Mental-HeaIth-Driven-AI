@@ -176,7 +176,7 @@ export default async function ProfilePage({ searchParams }: PageProps) {
         <div className="mx-auto w-full max-w-2xl p-6 lg:p-12">
           <div className="mb-10 flex flex-col gap-2">
             <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Your Profile</h1>
-            <p className="text-zinc-500 dark:text-zinc-400">Manage how you appear in your support circles.</p>
+            <p className="text-zinc-500 dark:text-zinc-400">Manage how you appear in your group chats.</p>
           </div>
 
           <div className="space-y-8">

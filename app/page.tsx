@@ -56,7 +56,7 @@ export default async function Home({ searchParams }: HomeProps) {
             <span className="text-blue-600 dark:text-blue-400">real conversations.</span>
           </h1>
           <p className="mt-8 text-lg leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-xl max-w-2xl mx-auto font-medium">
-            Join secure, peer-led support groups facilitated by our 24/7 AI guide. 
+            Join secure, peer-led support groups facilitated by our 24/7 AI Assistant. 
             Connect with others who understand your journey, share your story, and heal together on your own terms.
           </p>
           
@@ -75,7 +75,7 @@ export default async function Home({ searchParams }: HomeProps) {
               href="/chat"
               className="group flex h-14 w-full items-center justify-center gap-3 rounded-full bg-blue-600 px-10 text-lg font-black text-white shadow-xl shadow-blue-200 transition-all hover:scale-105 hover:bg-blue-700 dark:shadow-blue-900/20 sm:w-auto"
             >
-              Join a Support Circle
+              Start Chatting
               <span className="transition-transform group-hover:translate-x-1">→</span>
             </Link>
             <Link

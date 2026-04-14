@@ -65,10 +65,9 @@ export default async function ChatPage() {
     <div className="flex h-screen w-full overflow-hidden bg-white dark:bg-zinc-950 font-sans antialiased text-zinc-900 dark:text-zinc-50">
       {/* Sidebar - Consistent with chat views */}
       <aside className="hidden w-72 flex-col border-r border-zinc-100 bg-zinc-50/50 md:flex dark:border-zinc-800 dark:bg-zinc-900/50">
-        <div className="flex h-20 items-center border-b border-zinc-100 px-6 dark:border-zinc-800">
+        <div className="flex h-24 items-center border-b border-zinc-100 px-6 dark:border-zinc-800">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/Logo.svg" alt="Rooftop" width={40} height={40} className="dark:invert" />
-            <span className="font-extrabold text-lg tracking-tight">Rooftop</span>
+            <Image src="/Logo.svg" alt="Rooftop" width={56} height={56} className="dark:invert" />
           </Link>
         </div>
 
@@ -80,7 +79,7 @@ export default async function ChatPage() {
             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
             </svg>
-            New Support Circle
+            New Chat
           </Link>
 
           <div className="space-y-1">
@@ -143,18 +142,18 @@ export default async function ChatPage() {
                 </div>
                 <div>
                    <h3 className="text-lg font-bold">Start Fresh</h3>
-                   <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Pinned thoughts and support circles start here.</p>
+                   <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Pinned thoughts and conversations start here.</p>
                 </div>
                 <Link
                   href="/chat/new"
                   className="mt-2 inline-flex h-11 items-center justify-center rounded-xl bg-blue-600 px-6 text-sm font-bold text-white transition-all hover:bg-blue-700 shadow-md shadow-blue-200 dark:shadow-none"
                 >
-                  Create New Circle
+                  Create New Chat
                 </Link>
              </div>
 
              <div className="flex flex-col gap-4 rounded-3xl border border-zinc-100 bg-zinc-50 p-8 dark:border-zinc-800 dark:bg-zinc-900/50">
-                <div className="h-12 w-12 rounded-2xl bg-purple-100 flex items-center justify-center text-purple-600 dark:bg-purple-900/30 dark:text-purple-400">
+                <div className="h-12 w-12 rounded-2xl bg-purple-100 flex items-center justify-center text-purple-600 dark:bg-blue-900/30 dark:text-purple-400">
                    <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                    </svg>
@@ -174,14 +173,14 @@ export default async function ChatPage() {
 
           <section className="corkboard-section">
             <h2 className="mb-10 self-start px-4 text-xl font-black uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500 font-comfortaa">
-              Pinned Circles
+              Recent Chats
             </h2>
             
             {conversations.length === 0 ? (
                <div className="flex flex-col items-center justify-center py-16 text-center w-full">
                   <p className="text-zinc-400 font-gloria text-xl mb-6">Empty board... add your first note.</p>
                   <Link href="/chat/new" className="h-11 inline-flex items-center justify-center px-8 rounded-xl bg-blue-600 text-sm font-bold text-white shadow-lg shadow-blue-900/20 hover:bg-blue-700 transition-all">
-                    Create your first circle
+                    Create your first chat
                   </Link>
                </div>
             ) : (
@@ -194,7 +193,7 @@ export default async function ChatPage() {
                   >
                     <div className="corkboard-pin" />
                     <h3 className="corkboard-title">
-                      {conversation.title ?? "Untitled circle"}
+                      {conversation.title ?? "Untitled chat"}
                     </h3>
                     <p className="corkboard-meta">
                       Updated {new Date(conversation.updated_at).toLocaleDateString()}

@@ -162,7 +162,7 @@ export default async function ConversationPage({ params, searchParams }: PagePro
   const messageSenderNames = new Map(
     ((messageRows ?? []) as MessageRow[]).map((message) => {
       if (!message.sender_id) {
-        return [message.id, "Rooftop Guide"];
+        return [message.id, "AI Assistant"];
       }
 
       const profile = profileById.get(message.sender_id);
@@ -396,7 +396,7 @@ export default async function ConversationPage({ params, searchParams }: PagePro
   }
 
   return (
-    <div className="flex h-screen w-full overflow-hidden bg-white dark:bg-zinc-950">
+    <div className="flex h-screen w-full overflow-hidden bg-white dark:bg-zinc-950 font-sans antialiased text-zinc-900 dark:text-zinc-50">
       {/* Sidebar */}
       <aside className="hidden w-72 flex-col border-r border-zinc-100 bg-zinc-50/50 md:flex dark:border-zinc-800 dark:bg-zinc-900/50">
         <div className="flex h-24 items-center border-b border-zinc-100 px-6 dark:border-zinc-800">
@@ -413,12 +413,12 @@ export default async function ConversationPage({ params, searchParams }: PagePro
             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
             </svg>
-            New Support Circle
+            New Chat
           </Link>
 
           <div className="space-y-1">
             <h3 className="px-2 pb-2 text-[11px] font-bold uppercase tracking-wider text-zinc-400">
-              Conversations
+              Recent Chats
             </h3>
             {resolvedConversations.map((conversation) => (
               <Link
@@ -431,7 +431,7 @@ export default async function ConversationPage({ params, searchParams }: PagePro
                 }`}
               >
                 <span className="truncate pr-2 font-medium">
-                  {conversation.title ?? "Untitled conversation"}
+                  {conversation.title ?? "Untitled chat"}
                 </span>
                 {conversation.id === conversationId && (
                   <div className="h-1.5 w-1.5 rounded-full bg-blue-600 dark:bg-blue-400" />
@@ -457,7 +457,7 @@ export default async function ConversationPage({ params, searchParams }: PagePro
       {/* Main Chat Area */}
       <main className="flex flex-1 flex-col min-w-0">
         {/* Chat Header */}
-        <header className="flex h-16 shrink-0 items-center justify-between border-b border-zinc-100 px-6 dark:border-zinc-800">
+        <header className="flex h-20 shrink-0 items-center justify-between border-b border-zinc-100 px-6 dark:border-zinc-800">
           <div className="flex items-center gap-3 min-w-0">
             <Link href="/chat" className="md:hidden">
               <svg className="h-5 w-5 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -466,10 +466,10 @@ export default async function ConversationPage({ params, searchParams }: PagePro
             </Link>
             <div className="flex flex-col min-w-0">
               <h2 className="truncate text-sm font-bold text-zinc-900 dark:text-zinc-100">
-                {conversationData.title ?? "Untitled Conversation"}
+                {conversationData.title ?? "Untitled Chat"}
               </h2>
               <p className="truncate text-[11px] text-zinc-400">
-                {memberDisplayRows.length} members • Active support circle
+                {memberDisplayRows.length} members • Active group chat
               </p>
             </div>
           </div>
@@ -483,7 +483,7 @@ export default async function ConversationPage({ params, searchParams }: PagePro
               </summary>
               <div className="absolute right-0 top-full z-50 mt-2 w-72 origin-top-right rounded-2xl border border-zinc-100 bg-white p-4 shadow-xl dark:border-zinc-800 dark:bg-zinc-900">
                 <h3 className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-400 px-1">
-                  Circle Members
+                  Group Members
                 </h3>
                 <ul className="mb-4 max-h-48 space-y-2 overflow-y-auto px-1">
                   {memberDisplayRows.map((member) => (
@@ -516,7 +516,7 @@ export default async function ConversationPage({ params, searchParams }: PagePro
                       className="w-full rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-xs transition-all focus:border-blue-400 focus:ring-0 dark:border-zinc-800 dark:bg-zinc-950"
                     />
                     <button type="submit" className="w-full rounded-lg bg-blue-600 py-1.5 text-xs font-bold text-white transition-colors hover:bg-blue-700">
-                      Add to Circle
+                      Add to Group
                     </button>
                   </form>
                 )}
@@ -524,7 +524,7 @@ export default async function ConversationPage({ params, searchParams }: PagePro
                 <div className="border-t border-zinc-50 pt-3 dark:border-zinc-800 px-1">
                   <form action={leaveConversationAction}>
                     <button type="submit" className="w-full rounded-lg bg-red-50 py-1.5 text-xs font-bold text-red-600 transition-colors hover:bg-red-100 dark:bg-red-900/20 dark:text-red-400 dark:hover:bg-red-900/40">
-                      Leave Support Circle
+                      Leave Group
                     </button>
                   </form>
                 </div>
