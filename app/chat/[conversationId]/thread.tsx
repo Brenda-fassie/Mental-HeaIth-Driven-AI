@@ -64,7 +64,7 @@ export default function ChatThread({
         <div className="mx-auto max-w-3xl space-y-6">
           {messages.length === 0 && (
             <div className="flex flex-col items-center justify-center py-20 text-center">
-              <div className="h-12 w-12 rounded-2xl bg-blue-50 flex items-center justify-center mb-4 dark:bg-blue-900/20">
+              <div className="h-12 w-12 rounded-2xl bg-brand/20 flex items-center justify-center mb-4">
                 <span className="text-2xl">🌱</span>
               </div>
               <h3 className="text-lg font-semibold">Start a conversation</h3>
@@ -93,7 +93,7 @@ export default function ChatThread({
                   className={`max-w-[85%] rounded-2xl px-4 py-3 shadow-sm ${
                     isAI 
                       ? "bg-zinc-100 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100 rounded-tl-none" 
-                      : "bg-blue-600 text-white rounded-tr-none"
+                      : "bg-brand text-black rounded-tr-none"
                   }`}
                 >
                   {message.parts.map((part, index) => {
@@ -153,7 +153,7 @@ export default function ChatThread({
           onSubmit={handleSubmit}
           className="mx-auto max-w-3xl"
         >
-          <div className="relative flex flex-col gap-2 rounded-2xl border border-zinc-200 bg-zinc-50 p-2 transition-all focus-within:border-blue-400 focus-within:ring-2 focus-within:ring-blue-100 dark:border-zinc-800 dark:bg-zinc-900 dark:focus-within:ring-blue-900/20">
+          <div className="relative flex flex-col gap-2 rounded-2xl border border-zinc-200 bg-zinc-50 p-2 transition-all focus-within:border-brand focus-within:ring-2 focus-within:ring-brand/10 dark:border-zinc-800 dark:bg-zinc-900 dark:focus-within:ring-brand/5">
             {files && files.length > 0 && (
               <div className="flex flex-wrap gap-2 px-2 pt-1">
                 {Array.from(files).map((file, i) => (
@@ -214,7 +214,7 @@ export default function ChatThread({
                 <button
                   type="submit"
                   disabled={status !== "ready" || (!input.trim() && !files?.length)}
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white transition-all hover:bg-blue-700 disabled:opacity-30 disabled:hover:bg-blue-600"
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand text-black transition-opacity hover:opacity-90 disabled:opacity-30"
                 >
                   <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />

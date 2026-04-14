@@ -116,39 +116,36 @@ export default async function ProfilePage({ searchParams }: PageProps) {
         <div className="flex flex-1 flex-col overflow-y-auto p-4">
           <Link
             href="/chat/new"
-            className="mb-6 flex items-center justify-center gap-2 rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-blue-700"
+            className="mb-6 flex items-center justify-center gap-2 rounded-xl bg-brand py-2.5 text-sm font-semibold text-black shadow-sm transition-all hover:opacity-90"
           >
             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
             </svg>
-            New Support Circle
+            New Chat
           </Link>
 
           <div className="space-y-1">
             <h3 className="px-2 pb-2 text-[11px] font-bold uppercase tracking-wider text-zinc-400">
-              Your Circles
+              Navigation
             </h3>
-            {conversations.length === 0 ? (
-               <p className="px-2 py-4 text-xs text-zinc-400 italic">No circles yet...</p>
-            ) : (
-              conversations.map((conversation) => (
-                <Link
-                  key={conversation.id}
-                  href={`/chat/${conversation.id}`}
-                  className="group flex items-center justify-between rounded-lg px-3 py-2 text-sm text-zinc-600 transition-all hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800"
-                >
-                  <span className="truncate pr-2 font-medium">
-                    {conversation.title ?? "Untitled conversation"}
-                  </span>
-                </Link>
-              ))
-            )}
+            <Link
+              href="/chat"
+              className="flex items-center justify-between rounded-lg px-3 py-2 text-sm text-zinc-600 transition-all hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800"
+            >
+              Dashboard
+            </Link>
+            <Link
+              href="/profile"
+              className="flex items-center justify-between rounded-lg bg-brand/10 px-3 py-2 text-sm font-medium text-zinc-900 dark:text-zinc-100"
+            >
+              Profile Settings
+            </Link>
           </div>
         </div>
 
         <div className="border-t border-zinc-100 p-4 dark:border-zinc-800">
-          <div className="flex items-center gap-3 rounded-lg bg-blue-50 px-2 py-2 text-sm font-medium text-blue-700 dark:bg-blue-900/20 dark:text-blue-400">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 text-blue-600 dark:bg-blue-800 dark:text-blue-400">
+          <div className="flex items-center gap-3 rounded-lg px-2 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-400">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-200 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
               {user.email?.[0].toUpperCase() ?? "U"}
             </div>
             <span className="truncate">{user.email}</span>
@@ -159,12 +156,12 @@ export default async function ProfilePage({ searchParams }: PageProps) {
       {/* Main Content Area */}
       <main className="flex flex-1 flex-col min-w-0 overflow-y-auto">
         {/* Mobile Header */}
-        <header className="flex h-16 shrink-0 items-center justify-between border-b border-zinc-100 px-6 md:hidden dark:border-zinc-800">
+        <header className="flex h-20 shrink-0 items-center justify-between border-b border-zinc-100 px-6 md:hidden dark:border-zinc-800">
           <Link href="/chat" className="flex items-center gap-2">
              <svg className="h-5 w-5 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
              </svg>
-             <span className="font-bold tracking-tight">Profile</span>
+             <span className="font-bold tracking-tight text-brand">Profile</span>
           </Link>
           <div className="flex items-center gap-3">
              <form action={signOut}>
@@ -203,10 +200,10 @@ export default async function ProfilePage({ searchParams }: PageProps) {
                     <input
                       name="displayName"
                       defaultValue={profile?.display_name ?? ""}
-                      className="w-full rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm transition-all focus:border-blue-400 focus:ring-4 focus:ring-blue-100 dark:border-zinc-800 dark:bg-zinc-950 dark:focus:ring-blue-900/20"
+                      className="w-full rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm transition-all focus:border-brand focus:ring-4 focus:ring-brand/10 dark:border-zinc-800 dark:bg-zinc-950 dark:focus:ring-brand/5"
                       placeholder="e.g. Alex"
                     />
-                    <p className="text-[11px] text-zinc-400">This is how your name will appear to others in support circles.</p>
+                    <p className="text-[11px] text-zinc-400">This is how your name will appear to others in group chats.</p>
                   </div>
 
                   <div className="space-y-2">
@@ -218,7 +215,7 @@ export default async function ProfilePage({ searchParams }: PageProps) {
                        <input
                          name="username"
                          defaultValue={profile?.username ?? ""}
-                         className="w-full rounded-xl border border-zinc-200 bg-white pl-8 pr-4 py-3 text-sm transition-all focus:border-blue-400 focus:ring-4 focus:ring-blue-100 dark:border-zinc-800 dark:bg-zinc-950 dark:focus:ring-blue-900/20"
+                         className="w-full rounded-xl border border-zinc-200 bg-white pl-8 pr-4 py-3 text-sm transition-all focus:border-brand focus:ring-4 focus:ring-brand/10 dark:border-zinc-800 dark:bg-zinc-950 dark:focus:ring-brand/5"
                          placeholder="your_unique_id"
                          required
                        />
@@ -235,7 +232,7 @@ export default async function ProfilePage({ searchParams }: PageProps) {
                   </Link>
                   <button
                     type="submit"
-                    className="rounded-xl bg-blue-600 px-8 py-3 text-sm font-bold text-white shadow-lg shadow-blue-200 transition-all hover:bg-blue-700 dark:shadow-none"
+                    className="rounded-xl bg-brand px-8 py-3 text-sm font-bold text-black shadow-lg shadow-brand/20 transition-all hover:opacity-90 dark:shadow-none"
                   >
                     Save Changes
                   </button>

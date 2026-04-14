@@ -31,9 +31,10 @@ export const HeartAnimation = () => {
       const duration = (5 + 0.1 * Math.floor(Math.random() * 100)).toFixed(2);
       const delay = (-0.01 * Math.floor(Math.random() * 100) * parseFloat(duration)).toFixed(2);
       
-      const h = Math.floor(Math.random() * 25 + 330);
-      const s = Math.floor(Math.random() * 26 + 70);
-      const l = Math.floor(Math.random() * 26 + 47);
+      // Randomized purple HSL colors based on brand (#FFC6FF)
+      const h = Math.floor(Math.random() * 30 + 280); // Purple range
+      const s = Math.floor(Math.random() * 20 + 70);
+      const l = Math.floor(Math.random() * 20 + 70);
       const stroke = `hsl(${h}, ${s}%, ${l}%)`;
 
       elements.push({

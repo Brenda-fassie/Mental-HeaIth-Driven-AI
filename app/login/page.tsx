@@ -95,7 +95,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={isLoading}
-            className="rounded bg-blue-600 px-4 py-2 text-white disabled:opacity-60"
+            className="rounded-xl bg-brand px-4 py-2 font-bold text-black hover:opacity-90 transition-all disabled:opacity-60 shadow-lg shadow-brand/20"
           >
             Sign in
           </button>

@@ -40,7 +40,7 @@ export default async function Home({ searchParams }: HomeProps) {
             </Link>
             <Link
               href="/chat"
-              className="rounded-full bg-blue-600 px-6 py-2.5 text-sm font-bold text-white hover:bg-blue-700 transition-all shadow-lg"
+              className="rounded-full bg-brand px-6 py-2.5 text-sm font-bold text-black hover:opacity-90 transition-all shadow-lg"
             >
               Get Started
             </Link>
@@ -53,7 +53,7 @@ export default async function Home({ searchParams }: HomeProps) {
         <div className="relative z-10 mx-auto max-w-3xl">
           <h1 className="text-5xl font-extrabold tracking-tight sm:text-7xl">
             Safe spaces for <br />
-            <span className="text-blue-600 dark:text-blue-400">real conversations.</span>
+            <span className="text-brand">real conversations.</span>
           </h1>
           <p className="mt-8 text-lg leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-xl max-w-2xl mx-auto font-medium">
             Join secure, peer-led support groups facilitated by our 24/7 AI Assistant. 
@@ -73,7 +73,7 @@ export default async function Home({ searchParams }: HomeProps) {
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-6">
             <Link
               href="/chat"
-              className="group flex h-14 w-full items-center justify-center gap-3 rounded-full bg-blue-600 px-10 text-lg font-black text-white shadow-xl shadow-blue-200 transition-all hover:scale-105 hover:bg-blue-700 dark:shadow-blue-900/20 sm:w-auto"
+              className="group flex h-14 w-full items-center justify-center gap-3 rounded-full bg-brand px-10 text-lg font-black text-black shadow-xl shadow-brand/20 transition-all hover:scale-105 hover:opacity-90 dark:shadow-brand/10 sm:w-auto"
             >
               Start Chatting
               <span className="transition-transform group-hover:translate-x-1">→</span>

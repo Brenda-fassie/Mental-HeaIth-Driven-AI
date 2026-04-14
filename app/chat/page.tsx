@@ -74,7 +74,7 @@ export default async function ChatPage() {
         <div className="flex flex-1 flex-col overflow-y-auto p-4">
           <Link
             href="/chat/new"
-            className="mb-6 flex items-center justify-center gap-2 rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-blue-700"
+            className="mb-6 flex items-center justify-center gap-2 rounded-xl bg-brand py-2.5 text-sm font-semibold text-black shadow-sm transition-all hover:opacity-90"
           >
             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
@@ -88,7 +88,7 @@ export default async function ChatPage() {
             </h3>
             <Link
               href="/chat"
-              className="flex items-center justify-between rounded-lg bg-blue-50 px-3 py-2 text-sm font-medium text-blue-700 dark:bg-blue-900/20 dark:text-blue-400"
+              className="flex items-center justify-between rounded-lg bg-brand/10 px-3 py-2 text-sm font-medium text-zinc-900 dark:text-zinc-100"
             >
               Dashboard
             </Link>
@@ -135,7 +135,7 @@ export default async function ChatPage() {
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 mb-12">
              {/* Quick Actions */}
              <div className="flex flex-col gap-4 rounded-3xl border border-zinc-100 bg-zinc-50 p-8 dark:border-zinc-800 dark:bg-zinc-900/50">
-                <div className="h-12 w-12 rounded-2xl bg-blue-100 flex items-center justify-center text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
+                <div className="h-12 w-12 rounded-2xl bg-brand/20 flex items-center justify-center text-zinc-900 dark:text-zinc-100">
                    <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                    </svg>
@@ -146,14 +146,14 @@ export default async function ChatPage() {
                 </div>
                 <Link
                   href="/chat/new"
-                  className="mt-2 inline-flex h-11 items-center justify-center rounded-xl bg-blue-600 px-6 text-sm font-bold text-white transition-all hover:bg-blue-700 shadow-md shadow-blue-200 dark:shadow-none"
+                  className="mt-2 inline-flex h-11 items-center justify-center rounded-xl bg-brand px-6 text-sm font-bold text-black transition-all hover:opacity-90 shadow-md shadow-brand/20 dark:shadow-none"
                 >
                   Create New Chat
                 </Link>
              </div>
 
              <div className="flex flex-col gap-4 rounded-3xl border border-zinc-100 bg-zinc-50 p-8 dark:border-zinc-800 dark:bg-zinc-900/50">
-                <div className="h-12 w-12 rounded-2xl bg-purple-100 flex items-center justify-center text-purple-600 dark:bg-blue-900/30 dark:text-purple-400">
+                <div className="h-12 w-12 rounded-2xl bg-purple-100 flex items-center justify-center text-purple-600 dark:bg-blue-900/30 dark:text-blue-400">
                    <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                    </svg>
@@ -179,7 +179,7 @@ export default async function ChatPage() {
             {conversations.length === 0 ? (
                <div className="flex flex-col items-center justify-center py-16 text-center w-full">
                   <p className="text-zinc-400 font-gloria text-xl mb-6">Empty board... add your first note.</p>
-                  <Link href="/chat/new" className="h-11 inline-flex items-center justify-center px-8 rounded-xl bg-blue-600 text-sm font-bold text-white shadow-lg shadow-blue-900/20 hover:bg-blue-700 transition-all">
+                  <Link href="/chat/new" className="h-11 inline-flex items-center justify-center px-8 rounded-xl bg-brand text-sm font-bold text-black shadow-lg shadow-brand/20 hover:opacity-90 transition-all">
                     Create your first chat
                   </Link>
                </div>

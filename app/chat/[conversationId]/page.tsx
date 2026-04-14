@@ -376,7 +376,7 @@ export default async function ConversationPage({ params, searchParams }: PagePro
         <div className="flex flex-1 flex-col overflow-y-auto p-4">
           <Link
             href="/chat/new"
-            className="mb-6 flex items-center justify-center gap-2 rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-blue-700"
+            className="mb-6 flex items-center justify-center gap-2 rounded-xl bg-brand py-2.5 text-sm font-semibold text-black shadow-sm transition-all hover:opacity-90"
           >
             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
@@ -394,7 +394,7 @@ export default async function ConversationPage({ params, searchParams }: PagePro
                 href={`/chat/${conversation.id}`}
                 className={`group flex items-center justify-between rounded-lg px-3 py-2 text-sm transition-all ${
                   conversation.id === conversationId
-                    ? "bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400"
+                    ? "bg-brand/10 text-zinc-900 dark:text-zinc-100"
                     : "text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800"
                 }`}
               >
@@ -402,7 +402,7 @@ export default async function ConversationPage({ params, searchParams }: PagePro
                   {conversation.title ?? "Untitled chat"}
                 </span>
                 {conversation.id === conversationId && (
-                  <div className="h-1.5 w-1.5 rounded-full bg-blue-600 dark:bg-blue-400" />
+                  <div className="h-1.5 w-1.5 rounded-full bg-brand" />
                 )}
               </Link>
             ))}
@@ -481,9 +481,9 @@ export default async function ConversationPage({ params, searchParams }: PagePro
                     <input
                       name="username"
                       placeholder="Add username..."
-                      className="w-full rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-xs transition-all focus:border-blue-400 focus:ring-0 dark:border-zinc-800 dark:bg-zinc-950"
+                      className="w-full rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-xs transition-all focus:border-brand focus:ring-0 dark:border-zinc-800 dark:bg-zinc-950"
                     />
-                    <button type="submit" className="w-full rounded-lg bg-blue-600 py-1.5 text-xs font-bold text-white transition-colors hover:bg-blue-700">
+                    <button type="submit" className="w-full rounded-lg bg-brand py-1.5 text-xs font-bold text-black transition-opacity hover:opacity-90">
                       Add to Group
                     </button>
                   </form>

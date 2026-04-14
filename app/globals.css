@@ -12,6 +12,7 @@
   --font-mono: var(--font-geist-mono);
   --font-comfortaa: var(--font-comfortaa);
   --font-gloria: var(--font-gloria);
+  --color-brand: #FFC6FF;
 }
 
 @media (prefers-color-scheme: dark) {
