@@ -26,12 +26,27 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
 Open the SQL editor and run:
 
 - [supabase/migrations/20260414_fix_conversation_policies.sql](../supabase/migrations/20260414_fix_conversation_policies.sql)
+- [supabase/migrations/20260414_group_chat_membership_and_profiles.sql](../supabase/migrations/20260414_group_chat_membership_and_profiles.sql)
 
 That migration:
 - adds the `messages.role` column
 - backfills older messages
 - replaces the recursive membership policy
 - allows conversation creators to read and update their own conversations
+
+The second migration adds:
+- member lifecycle delete policies (remove/leave)
+- `message_features` table for per-sender profiling-safe analytics
+- automatic `is_group` recalculation
+
+## 3.1 Assistant sender model
+
+Assistant messages are stored with:
+- `role = 'assistant'`
+- `sender_id = null`
+- `triggered_by_user_id = auth user who triggered the reply`
+
+This keeps human speaker attribution intact for profiling while avoiding a required bot auth user.
 
 ## 4. How the app uses Supabase
 

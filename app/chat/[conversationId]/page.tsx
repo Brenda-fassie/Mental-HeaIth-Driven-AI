@@ -21,7 +21,8 @@ type ConversationMembershipRow = {
 
 type MessageRow = {
   id: string;
-  sender_id: string;
+  sender_id: string | null;
+  triggered_by_user_id?: string | null;
   role: "user" | "assistant";
   content: string;
   created_at: string;
@@ -133,12 +134,16 @@ export default async function ConversationPage({ params, searchParams }: PagePro
 
   const { data: messageRows } = await supabase
     .from("messages")
-    .select("id,sender_id,role,content,created_at")
+    .select("id,sender_id,triggered_by_user_id,role,content,created_at")
     .eq("conversation_id", conversationId)
     .order("created_at", { ascending: true });
 
   const messageSenderIds = Array.from(
-    new Set(((messageRows ?? []) as MessageRow[]).map((message) => message.sender_id)),
+    new Set(
+      ((messageRows ?? []) as MessageRow[])
+        .map((message) => message.sender_id)
+        .filter((senderId): senderId is string => Boolean(senderId)),
+    ),
   );
 
   const { data: profileRows } =
@@ -155,6 +160,10 @@ export default async function ConversationPage({ params, searchParams }: PagePro
 
   const messageSenderNames = new Map(
     ((messageRows ?? []) as MessageRow[]).map((message) => {
+      if (!message.sender_id) {
+        return [message.id, "AI"];
+      }
+
       const profile = profileById.get(message.sender_id);
       const displayName =
         profile?.display_name ?? profile?.username ?? `User ${message.sender_id.slice(0, 6)}`;
@@ -211,6 +220,21 @@ export default async function ConversationPage({ params, searchParams }: PagePro
     };
   });
 
+  async function refreshGroupFlag() {
+    "use server";
+
+    const supabase = await createClient();
+    const { count } = await supabase
+      .from("conversation_members")
+      .select("*", { head: true, count: "exact" })
+      .eq("conversation_id", conversationId);
+
+    await supabase
+      .from("conversations")
+      .update({ is_group: (count ?? 0) >= 2, updated_at: new Date().toISOString() })
+      .eq("id", conversationId);
+  }
+
   async function addMemberAction(formData: FormData) {
     "use server";
 
@@ -264,12 +288,110 @@ export default async function ConversationPage({ params, searchParams }: PagePro
       redirect(`/chat/${conversationId}?member_error=${encodeURIComponent(error.message)}`);
     }
 
-    await supabase
-      .from("conversations")
-      .update({ updated_at: new Date().toISOString() })
-      .eq("id", conversationId);
+    await refreshGroupFlag();
 
     redirect(`/chat/${conversationId}`);
+  }
+
+  async function removeMemberAction(formData: FormData) {
+    "use server";
+
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      redirect("/login");
+    }
+
+    const memberId = String(formData.get("memberId") ?? "").trim();
+    if (!memberId) {
+      redirect(`/chat/${conversationId}?member_error=missing_member`);
+    }
+
+    const { data: conversation } = await supabase
+      .from("conversations")
+      .select("created_by")
+      .eq("id", conversationId)
+      .maybeSingle();
+
+    if (!conversation || conversation.created_by !== user.id) {
+      redirect(`/chat/${conversationId}?member_error=not_authorized`);
+    }
+
+    if (memberId === user.id) {
+      redirect(`/chat/${conversationId}?member_error=owner_cannot_remove_self`);
+    }
+
+    const { error } = await supabase
+      .from("conversation_members")
+      .delete()
+      .eq("conversation_id", conversationId)
+      .eq("user_id", memberId);
+
+    if (error) {
+      redirect(`/chat/${conversationId}?member_error=${encodeURIComponent(error.message)}`);
+    }
+
+    await refreshGroupFlag();
+    redirect(`/chat/${conversationId}`);
+  }
+
+  async function leaveConversationAction() {
+    "use server";
+
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      redirect("/login");
+    }
+
+    const { data: conversation } = await supabase
+      .from("conversations")
+      .select("created_by")
+      .eq("id", conversationId)
+      .maybeSingle();
+
+    if (!conversation) {
+      redirect("/chat");
+    }
+
+    const { data: rows } = await supabase
+      .from("conversation_members")
+      .select("user_id,joined_at")
+      .eq("conversation_id", conversationId)
+      .order("joined_at", { ascending: true });
+
+    const others = (rows ?? []).filter((row) => row.user_id !== user.id);
+
+    if (conversation.created_by === user.id && others.length > 0) {
+      await supabase
+        .from("conversations")
+        .update({ created_by: others[0].user_id })
+        .eq("id", conversationId);
+    }
+
+    const { error: removeError } = await supabase
+      .from("conversation_members")
+      .delete()
+      .eq("conversation_id", conversationId)
+      .eq("user_id", user.id);
+
+    if (removeError) {
+      redirect(`/chat/${conversationId}?member_error=${encodeURIComponent(removeError.message)}`);
+    }
+
+    if (others.length === 0) {
+      await supabase.from("conversations").delete().eq("id", conversationId);
+      redirect("/chat");
+    }
+
+    await refreshGroupFlag();
+    redirect("/chat");
   }
 
   return (
@@ -336,8 +458,21 @@ export default async function ConversationPage({ params, searchParams }: PagePro
                   key={member.id}
                   className="rounded-full border border-zinc-200 px-3 py-1 text-sm dark:border-zinc-700"
                 >
-                  {member.name}
-                  {member.role === "owner" ? " (owner)" : ""}
+                  <span>
+                    {member.name}
+                    {member.role === "owner" ? " (owner)" : ""}
+                  </span>
+                  {isCreator && member.id !== user.id ? (
+                    <form action={removeMemberAction} className="inline">
+                      <input type="hidden" name="memberId" value={member.id} />
+                      <button
+                        type="submit"
+                        className="ml-2 text-xs text-red-500 hover:text-red-600"
+                      >
+                        remove
+                      </button>
+                    </form>
+                  ) : null}
                 </li>
               ))}
             </ul>
@@ -357,6 +492,15 @@ export default async function ConversationPage({ params, searchParams }: PagePro
                 </button>
               </form>
             ) : null}
+
+            <form action={leaveConversationAction}>
+              <button
+                type="submit"
+                className="rounded border border-zinc-300 px-3 py-1.5 text-sm dark:border-zinc-700"
+              >
+                Leave conversation
+              </button>
+            </form>
           </div>
         </div>
 
