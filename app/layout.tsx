@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Comfortaa } from "next/font/google";
+import { Geist, Geist_Mono, Comfortaa, Gloria_Hallelujah } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -17,6 +17,12 @@ const comfortaa = Comfortaa({
   subsets: ["latin"],
 });
 
+const gloriaHallelujah = Gloria_Hallelujah({
+  weight: "400",
+  variable: "--font-gloria",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: "Rooftop - Safe Spaces for Support",
   description: "Join secure, peer-led mental health support groups facilitated by AI. Share, connect, and heal together.",
@@ -30,7 +36,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${comfortaa.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${comfortaa.variable} ${gloriaHallelujah.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
