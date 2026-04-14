@@ -47,27 +47,32 @@ export async function summarizeConversationTitle({
     return existingTitle;
   }
 
-  const { text } = await generateText({
-    model: google("gemini-2.5-flash"),
-    prompt: [
-      "Create a concise title for this chat.",
-      "Rules:",
-      "- Use 2 to 6 words.",
-      "- No quotes.",
-      "- No trailing punctuation.",
-      "- Be specific and natural.",
-      "Conversation:",
-      sourceText,
-    ].join("\n"),
-  });
+  try {
+    const { text } = await generateText({
+      model: google("gemini-1.5-flash"),
+      prompt: [
+        "Create a concise title for this chat.",
+        "Rules:",
+        "- Use 2 to 6 words.",
+        "- No quotes.",
+        "- No trailing punctuation.",
+        "- Be specific and natural.",
+        "Conversation:",
+        sourceText,
+      ].join("\n"),
+    });
 
-  const nextTitle = normalizeTitle(text);
+    const nextTitle = normalizeTitle(text);
 
-  if (!nextTitle) {
+    if (!nextTitle) {
+      return existingTitle;
+    }
+
+    await supabase.from("conversations").update({ title: nextTitle }).eq("id", conversationId);
+
+    return nextTitle;
+  } catch (error) {
+    console.error("Failed to summarize conversation title:", error);
     return existingTitle;
   }
-
-  await supabase.from("conversations").update({ title: nextTitle }).eq("id", conversationId);
-
-  return nextTitle;
 }

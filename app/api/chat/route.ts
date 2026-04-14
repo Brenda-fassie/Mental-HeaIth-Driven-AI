@@ -149,7 +149,7 @@ export async function POST(req: Request) {
     });
 
     const result = streamText({
-      model: google("gemini-2.5-flash"),
+      model: google("gemini-1.5-flash"),
       messages: modelMessages,
       onFinish: async ({ text }) => {
         const assistantText = text.trim();

@@ -56,35 +56,7 @@ export default async function ChatPage() {
     (a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
   );
 
-  const resolvedConversations = await Promise.all(
-    conversations.map(async (conversation) => {
-      if (!isGenericConversationTitle(conversation.title)) {
-        return conversation;
-      }
-
-      const { data: conversationMessages } = await supabase
-        .from("messages")
-        .select("role,content")
-        .eq("conversation_id", conversation.id)
-        .order("created_at", { ascending: true })
-        .limit(6);
-
-      const title = await summarizeConversationTitle({
-        supabase,
-        conversationId: conversation.id,
-        existingTitle: conversation.title,
-        messages: (conversationMessages ?? []) as Array<{
-          role: "user" | "assistant";
-          content: string;
-        }>,
-      });
-
-      return {
-        ...conversation,
-        title,
-      };
-    }),
-  );
+  const resolvedConversations = conversations;
 
   async function signOut() {
     "use server";

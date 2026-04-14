@@ -104,10 +104,13 @@ export default async function ConversationPage({ params, searchParams }: PagePro
 
   const resolvedConversations = await Promise.all(
     conversations.map(async (conversation) => {
-      if (!isGenericConversationTitle(conversation.title)) {
+      // Only summarize the CURRENT conversation if it's generic.
+      // For others, just use what we have to avoid hitting rate limits.
+      if (conversation.id !== conversationId || !isGenericConversationTitle(conversation.title)) {
         return conversation;
       }
 
+      // Fetch messages ONLY if we are actually going to summarize.
       const { data: conversationMessages } = await supabase
         .from("messages")
         .select("role,content")
