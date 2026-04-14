@@ -40,7 +40,7 @@ export default async function Home({ searchParams }: HomeProps) {
             </Link>
             <Link
               href="/chat"
-              className="rounded-full bg-brand px-6 py-2.5 text-sm font-bold text-black hover:opacity-90 transition-all shadow-lg"
+              className="rounded-full bg-accent px-6 py-2.5 text-sm font-bold text-black hover:opacity-90 transition-all shadow-lg"
             >
               Get Started
             </Link>
@@ -107,4 +107,5 @@ export default async function Home({ searchParams }: HomeProps) {
       </footer>
     </div>
   );
+}
 }
