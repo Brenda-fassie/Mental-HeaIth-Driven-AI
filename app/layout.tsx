@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mental Health App",
-  description: "A simple mental health app for tracking mood and well-being",
+  title: "Rooftop - Safe Spaces for Support",
+  description: "Join secure, peer-led mental health support groups facilitated by AI. Share, connect, and heal together.",
 };
 
 export default function RootLayout({

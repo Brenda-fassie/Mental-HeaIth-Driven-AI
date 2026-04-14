@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { redirect } from "next/navigation";
 import type { UIMessage } from "ai";
 import { createClient } from "@/utils/supabase/server";
@@ -104,13 +105,10 @@ export default async function ConversationPage({ params, searchParams }: PagePro
 
   const resolvedConversations = await Promise.all(
     conversations.map(async (conversation) => {
-      // Only summarize the CURRENT conversation if it's generic.
-      // For others, just use what we have to avoid hitting rate limits.
       if (conversation.id !== conversationId || !isGenericConversationTitle(conversation.title)) {
         return conversation;
       }
 
-      // Fetch messages ONLY if we are actually going to summarize.
       const { data: conversationMessages } = await supabase
         .from("messages")
         .select("role,content")
@@ -164,7 +162,7 @@ export default async function ConversationPage({ params, searchParams }: PagePro
   const messageSenderNames = new Map(
     ((messageRows ?? []) as MessageRow[]).map((message) => {
       if (!message.sender_id) {
-        return [message.id, "AI"];
+        return [message.id, "Rooftop Guide"];
       }
 
       const profile = profileById.get(message.sender_id);
@@ -398,121 +396,155 @@ export default async function ConversationPage({ params, searchParams }: PagePro
   }
 
   return (
-    <main className="mx-auto flex w-full max-w-6xl flex-1 gap-6 px-4 py-6">
-      <aside className="hidden w-72 shrink-0 border-r border-zinc-200 pr-4 md:block dark:border-zinc-800">
-        <Link
-          href="/chat/new"
-          className="mb-4 block rounded bg-blue-600 px-3 py-2 text-center text-sm font-medium text-white"
-        >
-          New conversation
-        </Link>
-        <ul className="flex flex-col gap-2">
-          {resolvedConversations.map((conversation) => (
-            <li key={conversation.id}>
+    <div className="flex h-screen w-full overflow-hidden bg-white dark:bg-zinc-950">
+      {/* Sidebar */}
+      <aside className="hidden w-72 flex-col border-r border-zinc-100 bg-zinc-50/50 md:flex dark:border-zinc-800 dark:bg-zinc-900/50">
+        <div className="flex h-16 items-center border-b border-zinc-100 px-6 dark:border-zinc-800">
+          <Link href="/" className="flex items-center gap-2">
+            <Image src="/Logo.svg" alt="Rooftop" width={24} height={24} className="dark:invert" />
+            <span className="font-bold tracking-tight">Rooftop</span>
+          </Link>
+        </div>
+
+        <div className="flex flex-1 flex-col overflow-y-auto p-4">
+          <Link
+            href="/chat/new"
+            className="mb-6 flex items-center justify-center gap-2 rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-blue-700"
+          >
+            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
+            </svg>
+            New Support Circle
+          </Link>
+
+          <div className="space-y-1">
+            <h3 className="px-2 pb-2 text-[11px] font-bold uppercase tracking-wider text-zinc-400">
+              Conversations
+            </h3>
+            {resolvedConversations.map((conversation) => (
               <Link
+                key={conversation.id}
                 href={`/chat/${conversation.id}`}
-                className={`block rounded px-3 py-2 text-sm ${
+                className={`group flex items-center justify-between rounded-lg px-3 py-2 text-sm transition-all ${
                   conversation.id === conversationId
-                    ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
-                    : "hover:bg-zinc-100 dark:hover:bg-zinc-900"
+                    ? "bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400"
+                    : "text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800"
                 }`}
               >
-                {conversation.title ?? "Untitled conversation"}
+                <span className="truncate pr-2 font-medium">
+                  {conversation.title ?? "Untitled conversation"}
+                </span>
+                {conversation.id === conversationId && (
+                  <div className="h-1.5 w-1.5 rounded-full bg-blue-600 dark:bg-blue-400" />
+                )}
               </Link>
-            </li>
-          ))}
-        </ul>
+            ))}
+          </div>
+        </div>
+
+        <div className="border-t border-zinc-100 p-4 dark:border-zinc-800">
+          <Link
+            href="/profile"
+            className="flex items-center gap-3 rounded-lg px-2 py-2 text-sm font-medium text-zinc-600 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800"
+          >
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-zinc-200 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
+              {user.email?.[0].toUpperCase() ?? "U"}
+            </div>
+            <span className="truncate">{user.email}</span>
+          </Link>
+        </div>
       </aside>
 
-      <section className="flex min-h-0 flex-1 flex-col">
-        <div className="mb-3 flex items-center justify-between md:hidden">
-          <Link href="/chat" className="text-sm text-blue-600">
-            Back
-          </Link>
-          <div className="flex items-center gap-2">
-            <Link href="/profile" className="text-sm text-blue-600">
-              Profile
+      {/* Main Chat Area */}
+      <main className="flex flex-1 flex-col min-w-0">
+        {/* Chat Header */}
+        <header className="flex h-16 shrink-0 items-center justify-between border-b border-zinc-100 px-6 dark:border-zinc-800">
+          <div className="flex items-center gap-3 min-w-0">
+            <Link href="/chat" className="md:hidden">
+              <svg className="h-5 w-5 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
             </Link>
-            <Link
-              href="/chat/new"
-              className="rounded bg-blue-600 px-3 py-1.5 text-sm text-white"
-            >
-              New
-            </Link>
-          </div>
-        </div>
-
-        <div className="mb-4 rounded border border-zinc-200 p-4 dark:border-zinc-800">
-          <div className="flex flex-col gap-4">
-            <div>
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-500">
-                Members
+            <div className="flex flex-col min-w-0">
+              <h2 className="truncate text-sm font-bold text-zinc-900 dark:text-zinc-100">
+                {conversationData.title ?? "Untitled Conversation"}
               </h2>
-              {memberError ? (
-                <p className="mt-2 text-sm text-red-500">
-                  {decodeURIComponent(memberError)}
-                </p>
-              ) : null}
+              <p className="truncate text-[11px] text-zinc-400">
+                {memberDisplayRows.length} members • Active support circle
+              </p>
             </div>
-
-            <ul className="flex flex-wrap gap-2">
-              {memberDisplayRows.map((member) => (
-                <li
-                  key={member.id}
-                  className="rounded-full border border-zinc-200 px-3 py-1 text-sm dark:border-zinc-700"
-                >
-                  <span>
-                    {member.name}
-                    {member.role === "owner" ? " (owner)" : ""}
-                  </span>
-                  {isCreator && member.id !== user.id ? (
-                    <form action={removeMemberAction} className="inline">
-                      <input type="hidden" name="memberId" value={member.id} />
-                      <button
-                        type="submit"
-                        className="ml-2 text-xs text-red-500 hover:text-red-600"
-                      >
-                        remove
-                      </button>
-                    </form>
-                  ) : null}
-                </li>
-              ))}
-            </ul>
-
-            {isCreator ? (
-              <form action={addMemberAction} className="flex flex-col gap-2 sm:flex-row">
-                <input
-                  name="username"
-                  placeholder="Add member by username"
-                  className="flex-1 rounded border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
-                />
-                <button
-                  type="submit"
-                  className="rounded bg-blue-600 px-4 py-2 text-sm font-medium text-white"
-                >
-                  Add member
-                </button>
-              </form>
-            ) : null}
-
-            <form action={leaveConversationAction}>
-              <button
-                type="submit"
-                className="rounded border border-zinc-300 px-3 py-1.5 text-sm dark:border-zinc-700"
-              >
-                Leave conversation
-              </button>
-            </form>
           </div>
-        </div>
+
+          <div className="flex items-center gap-2">
+            <details className="group relative">
+              <summary className="flex cursor-pointer list-none items-center justify-center rounded-lg p-2 text-zinc-500 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800">
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </summary>
+              <div className="absolute right-0 top-full z-50 mt-2 w-72 origin-top-right rounded-2xl border border-zinc-100 bg-white p-4 shadow-xl dark:border-zinc-800 dark:bg-zinc-900">
+                <h3 className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-400 px-1">
+                  Circle Members
+                </h3>
+                <ul className="mb-4 max-h-48 space-y-2 overflow-y-auto px-1">
+                  {memberDisplayRows.map((member) => (
+                    <li key={member.id} className="flex items-center justify-between text-sm group/item">
+                      <div className="flex items-center gap-2 truncate">
+                        <div className="h-6 w-6 rounded-full bg-zinc-100 flex items-center justify-center text-[10px] dark:bg-zinc-800">
+                          {member.name[0]}
+                        </div>
+                        <span className="truncate text-zinc-700 dark:text-zinc-300">
+                          {member.name} {member.id === user.id && "(You)"}
+                        </span>
+                      </div>
+                      {isCreator && member.id !== user.id && (
+                        <form action={removeMemberAction}>
+                          <input type="hidden" name="memberId" value={member.id} />
+                          <button type="submit" className="text-[10px] font-bold text-red-500 opacity-0 group-hover/item:opacity-100 transition-opacity">
+                            REMOVE
+                          </button>
+                        </form>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+
+                {isCreator && (
+                  <form action={addMemberAction} className="mb-4 space-y-2 px-1">
+                    <input
+                      name="username"
+                      placeholder="Add username..."
+                      className="w-full rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-xs transition-all focus:border-blue-400 focus:ring-0 dark:border-zinc-800 dark:bg-zinc-950"
+                    />
+                    <button type="submit" className="w-full rounded-lg bg-blue-600 py-1.5 text-xs font-bold text-white transition-colors hover:bg-blue-700">
+                      Add to Circle
+                    </button>
+                  </form>
+                )}
+
+                <div className="border-t border-zinc-50 pt-3 dark:border-zinc-800 px-1">
+                  <form action={leaveConversationAction}>
+                    <button type="submit" className="w-full rounded-lg bg-red-50 py-1.5 text-xs font-bold text-red-600 transition-colors hover:bg-red-100 dark:bg-red-900/20 dark:text-red-400 dark:hover:bg-red-900/40">
+                      Leave Support Circle
+                    </button>
+                  </form>
+                </div>
+                {memberError && (
+                  <p className="mt-2 px-1 text-[10px] text-red-500 font-medium">
+                    Error: {decodeURIComponent(memberError)}
+                  </p>
+                )}
+              </div>
+            </details>
+          </div>
+        </header>
 
         <ChatThread
           conversationId={conversationId}
           initialMessages={initialMessages}
           messageSenderNames={Object.fromEntries(messageSenderNames)}
         />
-      </section>
-    </main>
+      </main>
+    </div>
   );
 }
