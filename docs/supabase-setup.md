@@ -51,7 +51,7 @@ This keeps human speaker attribution intact for profiling while avoiding a requi
 ## 4. How the app uses Supabase
 
 The app uses:
-- [middleware.ts](../middleware.ts)
+- [proxy.ts](../proxy.ts)
 - [utils/supabase/server.ts](../utils/supabase/server.ts)
 - [utils/supabase/client.ts](../utils/supabase/client.ts)
 

@@ -1,10 +1,10 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
 
-export default function LoginPage() {
+function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const supabase = createClient();
@@ -131,5 +131,23 @@ export default function LoginPage() {
         </div>
       </form>
     </main>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <main className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center gap-4 px-6 py-12">
+        <div className="animate-pulse space-y-4">
+          <div className="h-8 w-24 bg-zinc-200 dark:bg-zinc-800 rounded"></div>
+          <div className="h-4 w-64 bg-zinc-100 dark:bg-zinc-900 rounded"></div>
+          <div className="h-10 w-full bg-zinc-100 dark:bg-zinc-900 rounded"></div>
+          <div className="h-10 w-full bg-zinc-100 dark:bg-zinc-900 rounded"></div>
+          <div className="h-10 w-32 bg-zinc-200 dark:bg-zinc-800 rounded"></div>
+        </div>
+      </main>
+    }>
+      <LoginContent />
+    </Suspense>
   );
 }
