@@ -7,4 +7,9 @@ export const createClient = () =>
   createBrowserClient(
     supabaseUrl!,
     supabaseKey!,
+    {
+      cookieOptions: {
+        domain: typeof window !== "undefined" ? window.location.hostname : undefined,
+      },
+    },
   );
