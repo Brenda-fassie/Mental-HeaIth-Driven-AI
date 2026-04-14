@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #fafafa;
   --foreground: #171717;
+  --accent: #007780;
 }
 
 @theme inline {
@@ -13,13 +14,14 @@
   --font-comfortaa: var(--font-comfortaa);
   --font-gloria: var(--font-gloria);
   --color-brand: #FFC6FF;
-  --color-accent: #9BF6FF;
+  --color-accent: var(--accent);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --accent: #9BF6FF;
   }
 }
 

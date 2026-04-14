@@ -73,7 +73,7 @@ export default async function Home({ searchParams }: HomeProps) {
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-6">
             <Link
               href="/chat"
-              className="group flex h-14 w-full items-center justify-center gap-3 rounded-full bg-brand px-10 text-lg font-black text-black shadow-xl shadow-brand/20 transition-all hover:scale-105 hover:opacity-90 dark:shadow-brand/10 sm:w-auto"
+              className="group flex h-14 w-full items-center justify-center gap-3 rounded-full bg-accent px-10 text-lg font-black text-white dark:text-black shadow-xl shadow-accent/20 transition-all hover:scale-105 hover:opacity-90 dark:shadow-accent/10 sm:w-auto"
             >
               Start Chatting
               <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -107,5 +107,4 @@ export default async function Home({ searchParams }: HomeProps) {
       </footer>
     </div>
   );
-}
 }
