@@ -15,7 +15,7 @@ export default async function Home({ searchParams }: HomeProps) {
   const errorDescription = params.error_description;
 
   return (
-    <div className="flex min-h-screen flex-col bg-white font-sans text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-50">
+    <div className="flex min-h-screen flex-col bg-white font-comfortaa text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-50">
       {/* Background Animation */}
       <HeartAnimation />
 
