@@ -1,0 +1,30 @@
+.heart-animation-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.heart-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.heart-use {
+  fill: none;
+  stroke-width: 45;
+  stroke-dasharray: 1180;
+  clip-path: url(#c-heart);
+  mask: url(#m-heart);
+  animation: a-heart 10s ease-in-out infinite;
+}
+
+@keyframes a-heart {
+  0% { stroke-dashoffset: -1180; }
+  35%, 65% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 1180; }
+}
