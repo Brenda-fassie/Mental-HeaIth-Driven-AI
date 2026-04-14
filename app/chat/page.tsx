@@ -127,48 +127,16 @@ export default async function ChatPage() {
         </header>
 
         <div className="mx-auto w-full max-w-6xl p-6 lg:p-12">
-          <div className="mb-10 flex flex-col gap-2">
-            <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Welcome to Rooftop</h1>
-            <p className="text-zinc-500 dark:text-zinc-400">Your digital corkboard of safe spaces and connections.</p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 mb-12">
-             {/* Quick Actions */}
-             <div className="flex flex-col gap-4 rounded-3xl border border-zinc-100 bg-zinc-50 p-8 dark:border-zinc-800 dark:bg-zinc-900/50">
-                <div className="h-12 w-12 rounded-2xl bg-brand/20 flex items-center justify-center text-zinc-900 dark:text-zinc-100">
-                   <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                   </svg>
-                </div>
-                <div>
-                   <h3 className="text-lg font-bold">Start Fresh</h3>
-                   <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Pinned thoughts and conversations start here.</p>
-                </div>
-                <Link
-                  href="/chat/new"
-                  className="mt-2 inline-flex h-11 items-center justify-center rounded-xl bg-brand px-6 text-sm font-bold text-black transition-all hover:opacity-90 shadow-md shadow-brand/20 dark:shadow-none"
-                >
-                  Create New Chat
-                </Link>
-             </div>
-
-             <div className="flex flex-col gap-4 rounded-3xl border border-zinc-100 bg-zinc-50 p-8 dark:border-zinc-800 dark:bg-zinc-900/50">
-                <div className="h-12 w-12 rounded-2xl bg-purple-100 flex items-center justify-center text-purple-600 dark:bg-blue-900/30 dark:text-blue-400">
-                   <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                   </svg>
-                </div>
-                <div>
-                   <h3 className="text-lg font-bold">Identity</h3>
-                   <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">How you appear on the board is up to you.</p>
-                </div>
-                <Link
-                  href="/profile"
-                  className="mt-2 inline-flex h-11 items-center justify-center rounded-xl border border-zinc-200 bg-white px-6 text-sm font-bold transition-all hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-700"
-                >
-                  Edit Profile
-                </Link>
-             </div>
+          <div className="mb-12 flex flex-col items-center justify-center text-center gap-4">
+            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">Welcome to Rooftop</h1>
+            <p className="text-zinc-500 dark:text-zinc-400 max-w-lg">Your digital board of shared thoughts and connections.</p>
+            
+            <Link
+              href="/chat/new"
+              className="mt-4 h-14 inline-flex items-center justify-center px-10 rounded-2xl bg-brand text-lg font-black text-black shadow-xl shadow-brand/20 hover:scale-105 hover:opacity-90 transition-all active:scale-95"
+            >
+              Start a New Conversation
+            </Link>
           </div>
 
           <section className="corkboard-section">
@@ -177,11 +145,11 @@ export default async function ChatPage() {
             </h2>
             
             {conversations.length === 0 ? (
-               <div className="flex flex-col items-center justify-center py-16 text-center w-full">
-                  <p className="text-zinc-400 font-gloria text-xl mb-6">Empty board... add your first note.</p>
-                  <Link href="/chat/new" className="h-11 inline-flex items-center justify-center px-8 rounded-xl bg-brand text-sm font-bold text-black shadow-lg shadow-brand/20 hover:opacity-90 transition-all">
-                    Create your first chat
-                  </Link>
+               <div className="flex flex-col items-center justify-center py-20 text-center w-full">
+                  <div className="h-16 w-16 rounded-3xl bg-zinc-50 flex items-center justify-center mb-6 dark:bg-zinc-900">
+                    <span className="text-3xl text-zinc-300">📌</span>
+                  </div>
+                  <p className="text-zinc-400 font-gloria text-xl">Empty board... your recent chats will appear here.</p>
                </div>
             ) : (
               <div className="corkboard-grid">
