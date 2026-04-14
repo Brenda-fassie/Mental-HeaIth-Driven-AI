@@ -399,10 +399,9 @@ export default async function ConversationPage({ params, searchParams }: PagePro
     <div className="flex h-screen w-full overflow-hidden bg-white dark:bg-zinc-950">
       {/* Sidebar */}
       <aside className="hidden w-72 flex-col border-r border-zinc-100 bg-zinc-50/50 md:flex dark:border-zinc-800 dark:bg-zinc-900/50">
-        <div className="flex h-16 items-center border-b border-zinc-100 px-6 dark:border-zinc-800">
+        <div className="flex h-24 items-center border-b border-zinc-100 px-6 dark:border-zinc-800">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/Logo.svg" alt="Rooftop" width={24} height={24} className="dark:invert" />
-            <span className="font-bold tracking-tight">Rooftop</span>
+            <Image src="/Logo.svg" alt="Rooftop" width={56} height={56} className="dark:invert" />
           </Link>
         </div>
 

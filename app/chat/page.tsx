@@ -65,10 +65,10 @@ export default async function ChatPage() {
     <div className="flex h-screen w-full overflow-hidden bg-white dark:bg-zinc-950 font-sans antialiased text-zinc-900 dark:text-zinc-50">
       {/* Sidebar - Consistent with chat views */}
       <aside className="hidden w-72 flex-col border-r border-zinc-100 bg-zinc-50/50 md:flex dark:border-zinc-800 dark:bg-zinc-900/50">
-        <div className="flex h-16 items-center border-b border-zinc-100 px-6 dark:border-zinc-800">
+        <div className="flex h-20 items-center border-b border-zinc-100 px-6 dark:border-zinc-800">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/Logo.svg" alt="Rooftop" width={24} height={24} className="dark:invert" />
-            <span className="font-bold tracking-tight">Rooftop</span>
+            <Image src="/Logo.svg" alt="Rooftop" width={40} height={40} className="dark:invert" />
+            <span className="font-extrabold text-lg tracking-tight">Rooftop</span>
           </Link>
         </div>
 
@@ -115,10 +115,9 @@ export default async function ChatPage() {
       {/* Main Content Area */}
       <main className="flex flex-1 flex-col min-w-0 overflow-y-auto">
         {/* Mobile Header */}
-        <header className="flex h-16 shrink-0 items-center justify-between border-b border-zinc-100 px-6 md:hidden dark:border-zinc-800">
+        <header className="flex h-20 shrink-0 items-center justify-between border-b border-zinc-100 px-6 md:hidden dark:border-zinc-800">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/Logo.svg" alt="Rooftop" width={24} height={24} className="dark:invert" />
-            <span className="font-bold tracking-tight">Rooftop</span>
+            <Image src="/Logo.svg" alt="Rooftop" width={48} height={48} className="dark:invert" />
           </Link>
           <div className="flex items-center gap-3">
              <Link href="/profile" className="text-sm font-medium text-zinc-600 dark:text-zinc-400">Profile</Link>
@@ -174,12 +173,16 @@ export default async function ChatPage() {
           </div>
 
           <section className="corkboard-section">
-            <h2 className="mb-8 text-2xl font-bold text-white tracking-tight self-start px-4">Pinned Circles</h2>
+            <h2 className="mb-10 self-start px-4 text-xl font-black uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500 font-comfortaa">
+              Pinned Circles
+            </h2>
             
             {conversations.length === 0 ? (
                <div className="flex flex-col items-center justify-center py-16 text-center w-full">
-                  <p className="text-zinc-300 font-gloria text-lg">Empty board... add your first note.</p>
-                  <Link href="/chat/new" className="mt-4 text-sm font-bold text-white bg-white/10 px-4 py-2 rounded-full hover:bg-white/20 transition-all">Create your first circle →</Link>
+                  <p className="text-zinc-400 font-gloria text-xl mb-6">Empty board... add your first note.</p>
+                  <Link href="/chat/new" className="h-11 inline-flex items-center justify-center px-8 rounded-xl bg-blue-600 text-sm font-bold text-white shadow-lg shadow-blue-900/20 hover:bg-blue-700 transition-all">
+                    Create your first circle
+                  </Link>
                </div>
             ) : (
               <div className="corkboard-grid">

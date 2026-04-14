@@ -107,10 +107,9 @@ export default async function ProfilePage({ searchParams }: PageProps) {
     <div className="flex h-screen w-full overflow-hidden bg-white dark:bg-zinc-950 font-sans antialiased text-zinc-900 dark:text-zinc-50">
       {/* Sidebar - Consistent with chat views */}
       <aside className="hidden w-72 flex-col border-r border-zinc-100 bg-zinc-50/50 md:flex dark:border-zinc-800 dark:bg-zinc-900/50">
-        <div className="flex h-16 items-center border-b border-zinc-100 px-6 dark:border-zinc-800">
+        <div className="flex h-24 items-center border-b border-zinc-100 px-6 dark:border-zinc-800">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/Logo.svg" alt="Rooftop" width={24} height={24} className="dark:invert" />
-            <span className="font-bold tracking-tight">Rooftop</span>
+            <Image src="/Logo.svg" alt="Rooftop" width={56} height={56} className="dark:invert" />
           </Link>
         </div>
 
