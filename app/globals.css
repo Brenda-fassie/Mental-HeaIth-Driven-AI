@@ -13,6 +13,7 @@
   --font-comfortaa: var(--font-comfortaa);
   --font-gloria: var(--font-gloria);
   --color-brand: #FFC6FF;
+  --color-accent: #9BF6FF;
 }
 
 @media (prefers-color-scheme: dark) {

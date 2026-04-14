@@ -53,7 +53,7 @@ export default async function Home({ searchParams }: HomeProps) {
         <div className="relative z-10 mx-auto max-w-3xl">
           <h1 className="text-5xl font-extrabold tracking-tight sm:text-7xl">
             Safe spaces for <br />
-            <span className="text-brand">real conversations.</span>
+            <span className="text-accent">real conversations.</span>
           </h1>
           <p className="mt-8 text-lg leading-relaxed text-zinc-600 dark:text-zinc-400 sm:text-xl max-w-2xl mx-auto font-medium">
             Join secure, peer-led support groups facilitated by our 24/7 AI Assistant. 
